@@ -1,0 +1,60 @@
+.container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--black-primary);
+  z-index: -1;
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--black-primary) 0%,
+    var(--black-soft) 25%,
+    var(--violet-primary) 50%,
+    var(--purple-primary) 75%,
+    var(--black-primary) 100%
+  );
+  opacity: 0.3;
+}
+
+.primary {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1;
+  filter: blur(0px);
+}
+
+.wireframe {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+}
+
+/* Performance optimizations */
+.primary,
+.wireframe {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .primary,
+  .wireframe {
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,234 @@
+.sequence {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.skipButton {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  color: var(--white-pure);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all var(--duration-200) var(--ease-out);
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--violet-primary);
+    transform: scale(1.05);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--violet-primary);
+    outline-offset: 2px;
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+  }
+}
+
+.layers {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ripples {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 70%
+  );
+  animation: ripple 3s ease-in-out infinite;
+}
+
+@keyframes ripple {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1) rotate(0.5deg);
+    opacity: 0.8;
+  }
+}
+
+.vortex {
+  position: absolute !important;
+  inset: 0 !important;
+}
+
+.droplet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 120px;
+  z-index: 3;
+}
+
+.filtration {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.resolve {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.2) 0%,
+    transparent 60%
+  );
+}
+
+.progress {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--violet-primary),
+    var(--purple-primary)
+  );
+  border-radius: var(--radius-full);
+  transition: width var(--duration-500) var(--ease-out);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 50%
+  );
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+/* Performance optimizations */
+.sequence {
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.layers > * {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ripples {
+    animation: none;
+  }
+  
+  .placeholder {
+    animation: none;
+  }
+  
+  .sequence {
+    display: none;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .skipButton {
+    top: var(--space-2);
+    right: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+  }
+  
+  .ripples {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .droplet {
+    width: 60px;
+    height: 72px;
+  }
+  
+  .progress {
+    width: 150px;
+    bottom: var(--space-2);
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .skipButton {
+    background: var(--black-primary);
+    border-color: var(--white-pure);
+  }
+  
+  .progress {
+    background: var(--white-pure);
+  }
+  
+  .progressBar {
+    background: var(--violet-primary);
+  }
+}

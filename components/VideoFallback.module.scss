@@ -1,0 +1,154 @@
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.lottie {
+  width: 400px;
+  height: 400px;
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--white-pure);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid var(--violet-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.static {
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.1) 0%,
+    rgba(0, 0, 0, 0.5) 60%
+  );
+}
+
+.staticImage {
+  text-align: center;
+  max-width: 400px;
+  padding: var(--space-8);
+}
+
+.waterDropIcon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: var(--space-6);
+  filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3));
+}
+
+.staticTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white-pure);
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, var(--violet-primary), var(--purple-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.staticDescription {
+  font-size: 1rem;
+  color: var(--gray-200);
+  line-height: 1.6;
+}
+
+/* Performance optimizations */
+.video {
+  will-change: auto;
+}
+
+.lottie {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border: 3px solid var(--violet-primary);
+    border-radius: 50%;
+  }
+  
+  .lottie {
+    display: none;
+  }
+  
+  .video {
+    display: none;
+  }
+  
+  .fallback {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .lottie {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .staticImage {
+    padding: var(--space-6);
+  }
+  
+  .waterDropIcon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .staticTitle {
+    font-size: 1.25rem;
+  }
+  
+  .staticDescription {
+    font-size: 0.875rem;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .staticTitle {
+    color: var(--white-pure);
+    background: none;
+    -webkit-text-fill-color: initial;
+  }
+  
+  .loading {
+    background: var(--black-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+}

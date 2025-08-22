@@ -1,0 +1,25 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+  </defs>
+  
+  <path
+    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+    fill="url(#mapGradient)"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-opacity="0.6"
+  />
+  
+  <circle
+    cx="12"
+    cy="10"
+    r="3"
+    fill="#ffffff"
+    stroke="currentColor"
+    stroke-width="1"
+  />
+</svg>
