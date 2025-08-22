@@ -15,24 +15,18 @@ export default function PaperBackground({ className = '', children }: PaperBackg
       {/* Fallback background */}
       <div className={styles.fallback} />
       
-      {/* Primary shader layer */}
-      <Suspense fallback={null}>
+      {/* Primary shader layer - deep ocean gradient */}
+      <Suspense fallback={<div className={styles.fallback} />}>
         <MeshGradient
-          colors={['#1e3a8a', '#3b82f6', '#60a5fa', '#dbeafe']}
-          speed={0.3}
-          distortion={0.8}
-          swirl={0.1}
+          colors={['#0f172a', '#0e7490', '#06b6d4', '#0891b2']}
           className={styles.primary}
         />
       </Suspense>
 
-      {/* Wireframe overlay - simulated with second layer */}
+      {/* Ambient glow overlay */}
       <Suspense fallback={null}>
         <MeshGradient
-          colors={['#0c4a6e', '#0369a1', '#0ea5e9', '#7dd3fc']}
-          speed={0.2}
-          distortion={1.0}
-          swirl={0.2}
+          colors={['#000000', '#0891b2', '#06b6d4', '#000000']}
           className={styles.wireframe}
         />
       </Suspense>

@@ -4,41 +4,61 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  transition: all var(--duration-300) var(--ease-out);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 72px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: 12px;
   text-decoration: none;
-  color: var(--white-pure);
-  font-weight: 700;
+  color: #ffffff;
+  font-weight: 600;
   font-size: 1.25rem;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .logoIcon {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  color: #0ea5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.logoText {
-  background: linear-gradient(135deg, var(--violet-primary), var(--purple-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
+.logoMain {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.logoTag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #0ea5e9;
+  margin-left: 8px;
+  padding: 2px 6px;
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 4px;
+  letter-spacing: 0.05em;
 }
 
 .desktopNav {
@@ -46,7 +66,7 @@
   align-items: center;
   gap: var(--space-8);
   
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     display: none;
   }
 }
@@ -54,7 +74,7 @@
 .navList {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -62,20 +82,39 @@
 
 .navLink {
   display: block;
-  padding: var(--space-2) var(--space-4);
-  color: var(--gray-200);
+  padding: 10px 20px;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: 500;
-  border-radius: var(--radius-lg);
-  transition: all var(--duration-200) var(--ease-out);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: #0ea5e9;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
   
   &:hover {
-    color: var(--white-pure);
-    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    background: rgba(14, 165, 233, 0.08);
+    
+    &::after {
+      transform: scaleX(1);
+    }
   }
   
   &:focus-visible {
-    outline: 2px solid var(--violet-primary);
+    outline: 2px solid #0ea5e9;
     outline-offset: 2px;
   }
 }
@@ -83,32 +122,50 @@
 .contactInfo {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: 20px;
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border: none;
+  padding: 10px 24px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35);
+  }
 }
 
 .phoneNumber {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--white-pure);
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  font-weight: 600;
-  transition: color var(--duration-200) var(--ease-out);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
   
   &:hover {
-    color: var(--violet-light);
+    color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.08);
   }
   
   &:focus-visible {
-    outline: 2px solid var(--violet-primary);
+    outline: 2px solid #0ea5e9;
     outline-offset: 2px;
-    border-radius: var(--radius-md);
   }
 }
 
 .phoneIcon {
   width: 18px;
   height: 18px;
+  color: #0ea5e9;
 }
 
 .mobileMenuButton {
@@ -118,7 +175,7 @@
   cursor: pointer;
   padding: var(--space-2);
   
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     display: block;
   }
   

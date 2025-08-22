@@ -1,15 +1,35 @@
 'use client'
 
+import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
-import PaperBackground from '@/components/PaperBackground'
 import Schema from '@/components/Schema'
+import Footer from '@/components/Footer'
 
-// Lazy load heavy components
-const BackgroundVariants = dynamic(() => import('@/components/BackgroundVariants'), {
+// Dynamic imports with loading states
+const PaperBackground = dynamic(() => import('@/components/PaperBackground'), {
+  loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1 }} />,
   ssr: false
 })
+
+const Services = dynamic(() => import('@/components/Services'), {
+  loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem' }} />
+})
+
+const Systems = dynamic(() => import('@/components/Systems'), {
+  loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem' }} />
+})
+
+const Testimonials = dynamic(() => import('@/components/Testimonials'), {
+  loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem' }} />
+})
+
+const CallToAction = dynamic(() => import('@/components/CallToAction'), {
+  loading: () => <div className="skeleton" style={{ height: '200px', margin: '2rem' }} />
+})
+
+// Footer is imported at the top now
 
 export default function HomePage() {
   return (
@@ -17,57 +37,40 @@ export default function HomePage() {
       {/* SEO Schema markup */}
       <Schema />
       
-      {/* Background */}
-      <PaperBackground />
+      {/* Background - loads independently */}
+      <Suspense fallback={<div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: -1 }} />}>
+        <PaperBackground />
+      </Suspense>
       
-      {/* Navigation */}
-      <Nav />
+      {/* Critical content loads first */}
+      <div className="fade-in">
+        <Nav />
+      </div>
       
-      {/* Hero Section */}
-      <Hero />
+      <div className="fade-in stagger-1">
+        <Hero />
+      </div>
       
-      {/* Placeholder sections for the complete implementation */}
-      <section id="social-proof" className="section">
-        <div className="container">
-          <h2>Trusted by 2,000+ RGV Families</h2>
-          {/* SocialProof component would go here */}
-        </div>
-      </section>
+      {/* Secondary content loads progressively */}
+      <div className="fade-in stagger-2">
+        <Services />
+      </div>
       
-      <section id="systems" className="section">
-        <div className="container">
-          <h2>Water Treatment Systems</h2>
-          {/* ProductCards component would go here */}
-        </div>
-      </section>
+      <div className="fade-in stagger-3">
+        <Systems />
+      </div>
       
-      <section id="about" className="section">
-        <div className="container">
-          <h2>Why Choose Love Water</h2>
-          {/* Ethos component would go here */}
-        </div>
-      </section>
+      <div className="fade-in stagger-4">
+        <Testimonials />
+      </div>
       
-      <section id="service-areas" className="section">
-        <div className="container">
-          <h2>Serving the Rio Grande Valley</h2>
-          {/* ServiceArea component would go here */}
-        </div>
-      </section>
+      <div className="fade-in stagger-5">
+        <CallToAction />
+      </div>
       
-      <section id="contact" className="section">
-        <div className="container">
-          <h2>Get Your Free Water Test</h2>
-          {/* Contact form would go here */}
-        </div>
-      </section>
-      
-      {/* Footer placeholder */}
-      <footer className="section">
-        <div className="container">
-          <p>&copy; 2024 Love Water. Licensed & Insured.</p>
-        </div>
-      </footer>
+      <div className="fade-in stagger-5">
+        <Footer />
+      </div>
     </>
   )
 }

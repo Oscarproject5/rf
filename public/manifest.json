@@ -1,0 +1,31 @@
+{
+  "name": "Love Water - Rio Grande Valley Water Treatment",
+  "short_name": "Love Water",
+  "description": "Premium water filtration systems serving McAllen, Edinburg, Mission, and all Rio Grande Valley",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "utilities"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

@@ -11,10 +11,9 @@ interface NavProps {
 }
 
 const navItems = [
+  { href: '#services', label: 'Solutions' },
   { href: '#systems', label: 'Systems' },
-  { href: '#service-areas', label: 'Service Areas' },
-  { href: '#reviews', label: 'Reviews' },
-  { href: '#about', label: 'About' },
+  { href: '#testimonials', label: 'Reviews' },
   { href: '#contact', label: 'Contact' }
 ]
 
@@ -53,31 +52,31 @@ export default function Nav({ className = '' }: NavProps) {
     }
   }, [isMobileMenuOpen])
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    const href = e.currentTarget.getAttribute('href')
+    if (!href) return
+    
     setIsMobileMenuOpen(false)
+    
+    // Handle scroll to top for logo
+    if (href === '#hero' || href === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
     
     // Smooth scroll to section
     const element = document.querySelector(href)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-
-    // Track navigation
-    if (typeof window !== 'undefined' && window.track) {
-      window.track('nav_click', {
-        category: 'navigation',
-        label: href.replace('#', '')
-      })
+      const yOffset = -80 // Account for fixed header height
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      window.scrollTo({ top: y, behavior: 'smooth' })
     }
   }
 
   const handlePhoneClick = () => {
-    if (typeof window !== 'undefined' && window.track) {
-      window.track('phone_click', {
-        category: 'conversion',
-        label: 'nav_phone'
-      })
-    }
+    // Phone click handler
+    console.log('Phone clicked')
   }
 
   return (
@@ -101,10 +100,7 @@ export default function Nav({ className = '' }: NavProps) {
           <motion.a
             href="#hero"
             className={styles.logo}
-            onClick={(e) => {
-              e.preventDefault()
-              handleNavClick('#hero')
-            }}
+            onClick={handleNavClick}
             initial={{ opacity: 0, scale: 0.8, y: -20 }}
             animate={{ 
               opacity: 1, 
@@ -119,32 +115,20 @@ export default function Nav({ className = '' }: NavProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <motion.svg 
-              role="img" 
-              viewBox="0 0 24 24" 
-              xmlns="http://www.w3.org/2000/svg" 
-              className={styles.logoIcon}
-              initial={{ rotate: -10 }}
-              animate={{ rotate: 0 }}
-              transition={{ 
-                duration: 1, 
-                ease: "easeOut",
-                delay: 0.5
-              }}
-            >
-              <title>Drupal</title>
-              <motion.path 
-                d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253" 
-                fill="currentColor"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ 
-                  duration: 1.5, 
-                  ease: "easeInOut",
-                  delay: 0.8
-                }}
-              />
-            </motion.svg>
+            <div className={styles.logoIcon}>
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" opacity="0.2"/>
+                <path 
+                  d="M20 8C20 8 12 16 12 24C12 28.4183 15.5817 32 20 32C24.4183 32 28 28.4183 28 24C28 16 20 8 20 8Z" 
+                  fill="currentColor"
+                />
+                <path 
+                  d="M20 20C20 20 16 24 16 26C16 27.1046 16.8954 28 18 28C19.1046 28 20 27.1046 20 26C20 24 20 20 20 20Z" 
+                  fill="white"
+                  opacity="0.3"
+                />
+              </svg>
+            </div>
             
             <motion.span 
               className={styles.logoText}
@@ -156,7 +140,8 @@ export default function Nav({ className = '' }: NavProps) {
                 delay: 1.2 
               }}
             >
-              Love Water
+              <span className={styles.logoMain}>Love Water</span>
+              <span className={styles.logoTag}>RGV</span>
             </motion.span>
           </motion.a>
 
@@ -175,10 +160,7 @@ export default function Nav({ className = '' }: NavProps) {
                   <a
                     href={item.href}
                     className={styles.navLink}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleNavClick(item.href)
-                    }}
+                    onClick={handleNavClick}
                   >
                     {item.label}
                   </a>
@@ -206,10 +188,18 @@ export default function Nav({ className = '' }: NavProps) {
               <MagneticButton
                 variant="primary"
                 size="sm"
-                onClick={() => handleNavClick('#contact')}
+                onClick={() => {
+                  const element = document.querySelector('#contact')
+                  if (element) {
+                    const yOffset = -80
+                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+                    window.scrollTo({ top: y, behavior: 'smooth' })
+                  }
+                }}
                 ariaLabel="Get free water test"
+                className={styles.ctaButton}
               >
-                Free Water Test
+                Get Free Test
               </MagneticButton>
             </div>
           </div>
@@ -231,9 +221,10 @@ export default function Nav({ className = '' }: NavProps) {
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {isMobileMenuOpen && (
             <motion.div
+              key="mobile-menu"
               className={styles.mobileMenu}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -252,10 +243,7 @@ export default function Nav({ className = '' }: NavProps) {
                       <a
                         href={item.href}
                         className={styles.mobileNavLink}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          handleNavClick(item.href)
-                        }}
+                        onClick={handleNavClick}
                       >
                         {item.label}
                       </a>
@@ -281,11 +269,19 @@ export default function Nav({ className = '' }: NavProps) {
                   <MagneticButton
                     variant="primary"
                     size="md"
-                    onClick={() => handleNavClick('#contact')}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false)
+                      const element = document.querySelector('#contact')
+                      if (element) {
+                        const yOffset = -80
+                        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+                        window.scrollTo({ top: y, behavior: 'smooth' })
+                      }
+                    }}
                     className={styles.mobileCTA}
                     ariaLabel="Get free water test"
                   >
-                    Free Water Test
+                    Get Your Free Water Test
                   </MagneticButton>
                 </div>
               </div>

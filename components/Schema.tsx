@@ -145,6 +145,51 @@ export default function Schema() {
     }
   }
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.lovewaterrgv.com'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Services',
+        item: 'https://www.lovewaterrgv.com/#services'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Contact',
+        item: 'https://www.lovewaterrgv.com/#contact'
+      }
+    ]
+  }
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Love Water',
+    url: 'https://www.lovewaterrgv.com',
+    logo: 'https://www.lovewaterrgv.com/logo.png',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+1-956-555-7873',
+      contactType: 'customer service',
+      areaServed: 'US',
+      availableLanguage: ['English', 'Spanish']
+    },
+    sameAs: [
+      'https://www.facebook.com/lovewaterrgv',
+      'https://www.instagram.com/lovewaterrgv',
+      'https://www.twitter.com/lovewaterrgv'
+    ]
+  }
+
   return (
     <>
       <script
@@ -169,6 +214,18 @@ export default function Schema() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema)
         }}
       />
     </>
