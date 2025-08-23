@@ -14,6 +14,7 @@ const navItems = [
   { href: '#services', label: 'Solutions' },
   { href: '#systems', label: 'Systems' },
   { href: '#testimonials', label: 'Reviews' },
+  { href: '#faq', label: 'FAQ' },
   { href: '#contact', label: 'Contact' }
 ]
 
@@ -84,15 +85,17 @@ export default function Nav({ className = '' }: NavProps) {
       <GooeyFilterDefs />
       
       <motion.nav
-        className={`${styles.nav} ${className}`}
+        className={`${styles.nav} ${className} fade-in`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         style={{
           backgroundColor: isScrolled 
-            ? 'rgba(0, 0, 0, 0.9)' 
-            : 'rgba(0, 0, 0, 0.3)',
-          backdropFilter: isScrolled ? 'blur(20px)' : 'blur(10px)'
+            ? 'rgba(0, 0, 0, 0.85)' 
+            : 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'blur(12px) saturate(150%)',
+          WebkitBackdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'blur(12px) saturate(150%)',
+          borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)'
         }}
       >
         <div className={styles.container}>

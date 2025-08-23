@@ -9,7 +9,7 @@ import Footer from '@/components/Footer'
 
 // Dynamic imports with loading states
 const PaperBackground = dynamic(() => import('@/components/PaperBackground'), {
-  loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1 }} />,
+  loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1, background: '#000' }} />,
   ssr: false
 })
 
@@ -21,12 +21,21 @@ const Systems = dynamic(() => import('@/components/Systems'), {
   loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem' }} />
 })
 
+const WaterSoftenerDiagram = dynamic(() => import('@/components/WaterSoftenerDiagram'), {
+  loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem' }} />,
+  ssr: false
+})
+
 const Testimonials = dynamic(() => import('@/components/Testimonials'), {
   loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem' }} />
 })
 
 const CallToAction = dynamic(() => import('@/components/CallToAction'), {
   loading: () => <div className="skeleton" style={{ height: '200px', margin: '2rem' }} />
+})
+
+const FAQ = dynamic(() => import('@/components/FAQ'), {
+  loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem' }} />
 })
 
 // Footer is imported at the top now
@@ -43,9 +52,7 @@ export default function HomePage() {
       </Suspense>
       
       {/* Critical content loads first */}
-      <div className="fade-in">
-        <Nav />
-      </div>
+      <Nav />
       
       <div className="fade-in stagger-1">
         <Hero />
@@ -60,15 +67,25 @@ export default function HomePage() {
         <Systems />
       </div>
       
-      <div className="fade-in stagger-4">
+      <div className="fade-in stagger-4" id="how-it-works">
+        <section style={{ padding: '4rem 0' }}>
+          <WaterSoftenerDiagram />
+        </section>
+      </div>
+      
+      <div className="fade-in stagger-5">
         <Testimonials />
       </div>
       
-      <div className="fade-in stagger-5">
+      <div className="fade-in stagger-6">
+        <FAQ />
+      </div>
+      
+      <div className="fade-in stagger-7">
         <CallToAction />
       </div>
       
-      <div className="fade-in stagger-5">
+      <div className="fade-in stagger-8">
         <Footer />
       </div>
     </>

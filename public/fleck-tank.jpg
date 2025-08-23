@@ -1,0 +1,53 @@
+<!-- Placeholder for Fleck 5600SXT Tank View -->
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="600" fill="#0e7490"/>
+  
+  <!-- Tank Cross-Section View -->
+  <g transform="translate(300, 300)">
+    <!-- Outer Tank -->
+    <rect x="-100" y="-220" width="200" height="400" rx="15" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+    
+    <!-- Inner Resin Chamber -->
+    <rect x="-85" y="-200" width="170" height="360" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+    
+    <!-- Resin Beads -->
+    <rect x="-75" y="-180" width="150" height="320" rx="8" fill="#0891b2" opacity="0.4"/>
+    
+    <!-- Resin Layers -->
+    <ellipse cx="0" cy="-160" rx="70" ry="10" fill="#06b6d4" opacity="0.3"/>
+    <ellipse cx="0" cy="-120" rx="70" ry="10" fill="#06b6d4" opacity="0.4"/>
+    <ellipse cx="0" cy="-80" rx="70" ry="10" fill="#06b6d4" opacity="0.5"/>
+    <ellipse cx="0" cy="-40" rx="70" ry="10" fill="#06b6d4" opacity="0.6"/>
+    <ellipse cx="0" cy="0" rx="70" ry="10" fill="#06b6d4" opacity="0.7"/>
+    <ellipse cx="0" cy="40" rx="70" ry="10" fill="#06b6d4" opacity="0.8"/>
+    <ellipse cx="0" cy="80" rx="70" ry="10" fill="#06b6d4" opacity="0.9"/>
+    <ellipse cx="0" cy="120" rx="70" ry="10" fill="#06b6d4" opacity="1"/>
+    
+    <!-- Center Distribution Tube -->
+    <rect x="-5" y="-200" width="10" height="360" fill="#64748b" opacity="0.8"/>
+    
+    <!-- Top Distributor -->
+    <ellipse cx="0" cy="-190" rx="30" ry="5" fill="#475569"/>
+    
+    <!-- Bottom Distributor -->
+    <ellipse cx="0" cy="150" rx="30" ry="5" fill="#475569"/>
+    
+    <!-- Flow Arrows -->
+    <path d="M -120 -100 L -100 -100" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <path d="M 100 100 L 120 100" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowhead)"/>
+  </g>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee"/>
+    </marker>
+  </defs>
+  
+  <text x="300" y="520" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">
+    1.5 Cu. Ft. Resin Tank
+  </text>
+  <text x="300" y="550" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" opacity="0.8">
+    High-Capacity Ion Exchange Resin
+  </text>
+</svg>

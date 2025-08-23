@@ -1,0 +1,311 @@
+.diagramContainer {
+  width: 100%;
+  padding: 3rem 0;
+  background: linear-gradient(135deg,
+    rgba(30, 64, 175, 0.05) 0%,
+    rgba(59, 130, 246, 0.02) 50%,
+    rgba(30, 64, 175, 0.05) 100%
+  );
+  border-radius: 20px;
+  margin: 2rem 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 3rem;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+.diagramSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.diagramImage {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+}
+
+.processImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 15px;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+// Animation controls removed - using static diagram
+
+.infoPanel {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+
+  @media (max-width: 1200px) {
+    position: static;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.stageInfo {
+  color: white;
+}
+
+.stageHeader {
+  margin-bottom: 1.5rem;
+
+  h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--violet-primary);
+  }
+}
+
+.stageIndicator {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  &.active {
+    background: var(--violet-primary);
+    width: 30px;
+    border-radius: 5px;
+  }
+}
+
+.stageDescription {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.5rem;
+}
+
+.stageDetails {
+  margin-bottom: 2rem;
+
+  h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.8);
+
+    svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--violet-primary);
+    }
+  }
+}
+
+.cycleInfo {
+  h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: white;
+  }
+}
+
+.cycleSteps {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    right: 30px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+  }
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  
+  &:hover {
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--violet-primary);
+    outline-offset: 2px;
+  }
+
+  &.active {
+    opacity: 1;
+
+    .stepNumber {
+      background: var(--violet-primary);
+      border-color: var(--violet-primary);
+      transform: scale(1.1);
+    }
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.stepNumber {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 0;
+    gap: 1rem;
+  }
+}
+
+.factCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-5px);
+  }
+
+  h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--violet-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+}

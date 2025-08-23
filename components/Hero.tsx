@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import MagneticButton from './MagneticButton'
 import styles from './Hero.module.scss'
 
@@ -9,6 +9,37 @@ interface HeroProps {
 }
 
 export default function Hero({ className = '' }: HeroProps) {
+  const images = [
+    {
+      src: '/close-up-kid-filling-bottle-with-water.jpg',
+      alt: 'Child filling water bottle - clean water for families'
+    },
+    {
+      src: '/portrait-man-home-drinking-glass-water.jpg',
+      alt: 'Man enjoying clean drinking water at home'
+    },
+    {
+      src: '/H2O-56SEM-R-48-1_l2.jpg',
+      alt: 'Professional water softener system for whole home filtration'
+    },
+    {
+      src: '/Gemini_Generated_Image_vg90hvvg90hvvg90.png',
+      alt: 'Modern water purification system'
+    }
+  ]
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    // Different durations for each image
+    const durations = [4000, 4000, 16000, 4000] // Water softener stays for 16 seconds, others for 4
+    
+    const timeout = setTimeout(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
+    }, durations[currentImageIndex])
+
+    return () => clearTimeout(timeout)
+  }, [currentImageIndex, images.length])
 
   const handleCTAClick = () => {
     if (typeof window !== 'undefined') {
@@ -84,14 +115,30 @@ export default function Hero({ className = '' }: HeroProps) {
             </div>
           </div>
 
-          {/* Right image */}
+          {/* Right image slideshow */}
           <div className={styles.rightImage}>
             <div className={styles.imageFrame}>
-              <img 
-                src="/hero-image.png" 
-                alt="Crystal clear water pouring into glass" 
-                className={styles.heroImage}
-              />
+              <div className={styles.slideshow}>
+                {images.map((image, index) => (
+                  <img 
+                    key={index}
+                    src={image.src} 
+                    alt={image.alt} 
+                    className={`${styles.heroImage} ${index === currentImageIndex ? styles.active : ''}`}
+                  />
+                ))}
+              </div>
+              {/* Slideshow indicators */}
+              <div className={styles.indicators}>
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`${styles.indicator} ${index === currentImageIndex ? styles.active : ''}`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

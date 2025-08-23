@@ -1,0 +1,39 @@
+<!-- Placeholder for Fleck 5600SXT Control Head Image -->
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="600" fill="#1e293b"/>
+  
+  <!-- Control Head Detail View -->
+  <g transform="translate(300, 300)">
+    <!-- Main Control Body -->
+    <rect x="-150" y="-100" width="300" height="200" rx="10" fill="#334155" stroke="#475569" stroke-width="3"/>
+    
+    <!-- Display Screen -->
+    <rect x="-120" y="-70" width="240" height="80" rx="5" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+    
+    <!-- LCD Display Elements -->
+    <text x="0" y="-30" text-anchor="middle" fill="#22d3ee" font-family="monospace" font-size="24" font-weight="bold">5600 SXT</text>
+    <text x="0" y="0" text-anchor="middle" fill="#22d3ee" font-family="monospace" font-size="18">METER MODE</text>
+    <text x="0" y="25" text-anchor="middle" fill="#22d3ee" font-family="monospace" font-size="14">GAL: 47,850</text>
+    
+    <!-- Control Buttons -->
+    <circle cx="-80" cy="60" r="15" fill="#475569" stroke="#64748b" stroke-width="2"/>
+    <circle cx="-40" cy="60" r="15" fill="#475569" stroke="#64748b" stroke-width="2"/>
+    <circle cx="0" cy="60" r="15" fill="#475569" stroke="#64748b" stroke-width="2"/>
+    <circle cx="40" cy="60" r="15" fill="#475569" stroke="#64748b" stroke-width="2"/>
+    <circle cx="80" cy="60" r="15" fill="#475569" stroke="#64748b" stroke-width="2"/>
+    
+    <!-- Button Labels -->
+    <text x="-80" y="65" text-anchor="middle" fill="white" font-size="10">UP</text>
+    <text x="-40" y="65" text-anchor="middle" fill="white" font-size="10">DN</text>
+    <text x="0" y="65" text-anchor="middle" fill="white" font-size="10">SET</text>
+    <text x="40" y="65" text-anchor="middle" fill="white" font-size="10">RGN</text>
+    <text x="80" y="65" text-anchor="middle" fill="white" font-size="10">INFO</text>
+  </g>
+  
+  <text x="300" y="480" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">
+    Digital Control Head
+  </text>
+  <text x="300" y="510" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" opacity="0.8">
+    Advanced Programming Interface
+  </text>
+</svg>

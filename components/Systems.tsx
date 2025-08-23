@@ -7,45 +7,51 @@ import styles from './Systems.module.scss'
 const systems = [
   {
     id: 1,
-    name: 'Whole House System Pro',
-    image: 'https://via.placeholder.com/600x400/0891b2/ffffff?text=Whole+House+System',
-    price: 'Starting at $2,499',
+    name: 'Whole House System Installation',
+    image: '/ChatGPT_Image_Aug_23_2025_05_02_04_PM.png',
+    serviceType: 'Professional Installation Service',
     features: [
-      'Filters all water entering your home',
-      '1 million gallon capacity',
-      'Removes 97% of chlorine',
-      'Salt-free conditioning',
-      '10-year warranty'
+      'Complete system installation',
+      'Plumbing integration & setup',
+      'System calibration & testing',
+      'Training on system operation',
+      'Post-installation support'
     ],
-    badge: 'Most Popular'
+    badge: 'Best Value',
+    buttonText: 'Schedule Installation',
+    buttonLink: '#contact'
   },
   {
     id: 2,
-    name: 'Under Sink RO System',
-    image: 'https://via.placeholder.com/600x400/06b6d4/ffffff?text=RO+System',
-    price: 'Starting at $599',
+    name: 'RO System Installation',
+    image: '/Gemini_Generated_Image_hneinuhneinuhnei.png',
+    serviceType: 'Under-Sink Installation',
     features: [
-      '5-stage reverse osmosis',
-      '99.9% contaminant removal',
-      'Alkaline remineralization',
-      'Space-saving design',
-      '2-year warranty'
+      'Professional under-sink mounting',
+      'Dedicated faucet installation',
+      'Drain line connection',
+      'Storage tank setup',
+      'Water quality verification'
     ],
-    badge: null
+    badge: null,
+    buttonText: 'Schedule Installation',
+    buttonLink: '#contact'
   },
   {
     id: 3,
-    name: 'Water Softener Plus',
-    image: 'https://via.placeholder.com/600x400/0e7490/ffffff?text=Water+Softener',
-    price: 'Starting at $1,299',
+    name: 'Water Softener Installation',
+    image: '/Gemini_Generated_Image_vg90hvvg90hvvg90.png',
+    serviceType: 'Fleck 5600SXT Installation',
     features: [
-      'Eliminates hard water',
-      'Smart salt monitoring',
-      'WiFi connectivity',
-      'Extends appliance life',
-      '5-year warranty'
+      'Complete system installation',
+      'Bypass valve & plumbing setup',
+      'Digital control programming',
+      'Brine tank configuration',
+      'Water hardness calibration'
     ],
-    badge: 'Best Value'
+    badge: 'Professional Grade',
+    buttonText: 'See How It Works',
+    buttonLink: '#how-it-works'
   }
 ]
 
@@ -60,9 +66,9 @@ export default function Systems() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className={styles.title}>Our Water Filtration Systems</h2>
+          <h2 className={styles.title}>Professional Water System Installation</h2>
           <p className={styles.subtitle}>
-            Professional-grade solutions for every home and budget
+            Expert installation of premium water treatment systems for your home
           </p>
         </motion.div>
 
@@ -95,7 +101,7 @@ export default function Systems() {
 
               <div className={styles.systemInfo}>
                 <h3 className={styles.systemName}>{system.name}</h3>
-                <div className={styles.price}>{system.price}</div>
+                <div className={styles.serviceType}>{system.serviceType}</div>
                 
                 <ul className={styles.features}>
                   {system.features.map((feature, idx) => (
@@ -108,12 +114,12 @@ export default function Systems() {
                   ))}
                 </ul>
 
-                <button className={styles.learnMore}>
-                  Learn More
+                <a href={system.buttonLink} className={styles.learnMore}>
+                  {system.buttonText}
                   <svg className={styles.arrow} viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}
@@ -126,9 +132,9 @@ export default function Systems() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <p className={styles.ctaText}>Not sure which system is right for you?</p>
+          <p className={styles.ctaText}>Ready for professional water system installation?</p>
           <a href="#contact" className={styles.ctaButton}>
-            Get Your Free Water Test & Consultation
+            Schedule Your Free In-Home Assessment
           </a>
         </motion.div>
       </div>

@@ -85,6 +85,7 @@
 html {
   scroll-behavior: smooth;
   text-size-adjust: 100%;
+  scroll-padding-top: 80px; // Account for fixed header height
 }
 
 body {

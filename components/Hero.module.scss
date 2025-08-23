@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 80px 0;
+  padding: 100px 0 60px 0; // Reduced top padding to show badges
   overflow: hidden;
   background: transparent; // Let body PaperBackground show through
 }
@@ -20,7 +20,8 @@
 .topBadges {
   display: flex;
   gap: 20px;
-  margin-bottom: 60px;
+  margin-top: 0; // Removed extra top margin
+  margin-bottom: 40px; // Reduced bottom margin
   justify-content: center;
   opacity: 0;
   animation: fadeInDown 0.6s ease forwards;
@@ -83,9 +84,9 @@
 .mainGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 60px;
   align-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .leftContent {
@@ -202,13 +203,63 @@
   padding: 4px;
 }
 
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 .heroImage {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   border-radius: 16px;
   object-fit: cover;
+  object-position: center top;
   aspect-ratio: 4/3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  
+  &.active {
+    opacity: 1;
+    position: relative;
+  }
+}
+
+.indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  &.active {
+    width: 24px;
+    border-radius: 4px;
+    background: white;
+  }
 }
 
 .bottomFeatures {
@@ -267,7 +318,7 @@
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .hero {
-    padding: 60px 0;
+    padding: 90px 0 40px 0;
     min-height: auto;
   }
   
