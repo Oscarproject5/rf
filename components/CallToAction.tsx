@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import MagneticButton from './MagneticButton'
 import styles from './CallToAction.module.scss'
 
 export default function CallToAction() {
@@ -113,15 +112,13 @@ export default function CallToAction() {
                 </div>
               </div>
 
-              <MagneticButton
+              <button
                 type="submit"
-                variant="primary"
-                size="lg"
                 disabled={isSubmitting}
-                className={styles.submitButton}
+                className={`${styles.submitButton} ${styles.primaryButton}`}
               >
                 {isSubmitting ? 'Submitting...' : 'Schedule Free Test'}
-              </MagneticButton>
+              </button>
 
               {submitStatus === 'success' && (
                 <motion.p 

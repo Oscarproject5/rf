@@ -16,29 +16,21 @@ interface BackgroundVariantsProps {
 const backgroundComponents = {
   aurora: (
     <NeuroNoise
-      colors={['#000000', '#7c3aed', '#ffffff']}
-      speed={0.4}
       className={styles.shader}
     />
   ),
   flow: (
     <Waves
-      colors={['#0a0a0a', '#a78bfa', '#f8f7f4']}
-      speed={0.25}
       className={styles.shader}
     />
   ),
   noise: (
     <SimplexNoise
-      colors={['#000000', '#8b5cf6', '#ffffff']}
-      speed={0.2}
       className={styles.shader}
     />
   ),
   voronoi: (
     <Voronoi
-      colors={['#000000', '#8b5cf6', '#9333ea', '#ffffff']}
-      speed={0.1}
       className={styles.shader}
     />
   ),

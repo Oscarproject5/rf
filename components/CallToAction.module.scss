@@ -84,6 +84,28 @@
   justify-content: center;
 }
 
+.primaryButton {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #0ea5e9, #0891b2);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
 .successMessage,
 .errorMessage {
   margin-top: 20px;
