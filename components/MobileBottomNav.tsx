@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useViewport } from '@/hooks/useViewport'
 import { useMobile } from '@/hooks/useMobile'
 import { useHaptics } from '@/hooks/useHaptics'
@@ -26,19 +25,9 @@ export default function MobileBottomNav({
   activeItem,
   className = '' 
 }: MobileBottomNavProps) {
-  const [isVisible, setIsVisible] = useState(true)
-  const { scrollDirection, safeAreaBottom } = useViewport()
+  const { safeAreaBottom } = useViewport()
   const { isMobile } = useMobile()
   const { selection } = useHaptics()
-
-  // Hide on scroll down, show on scroll up
-  useEffect(() => {
-    if (scrollDirection === 'down') {
-      setIsVisible(false)
-    } else if (scrollDirection === 'up') {
-      setIsVisible(true)
-    }
-  }, [scrollDirection])
 
   const handleItemClick = (item: NavItem, e: React.MouseEvent) => {
     e.preventDefault()
@@ -58,46 +47,41 @@ export default function MobileBottomNav({
   if (!isMobile) return null
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.nav
-          className={`${styles.bottomNav} ${className}`}
-          style={{
-            paddingBottom: `${safeAreaBottom}px`
-          }}
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-        >
-          <div className={styles.navContainer}>
-            {items.map((item, index) => (
-              <motion.button
-                key={item.id}
-                className={`${styles.navItem} ${activeItem === item.id ? styles.active : ''}`}
-                onClick={(e) => handleItemClick(item, e)}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className={styles.iconContainer}>
-                  {item.icon}
-                  {activeItem === item.id && (
-                    <motion.div
-                      className={styles.activeIndicator}
-                      layoutId="activeIndicator"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                </div>
-                <span className={styles.label}>{item.label}</span>
-              </motion.button>
-            ))}
-          </div>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+    <motion.nav
+      className={`${styles.bottomNav} ${className}`}
+      style={{
+        paddingBottom: `${safeAreaBottom}px`
+      }}
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      <div className={styles.navContainer}>
+        {items.map((item, index) => (
+          <motion.button
+            key={item.id}
+            className={`${styles.navItem} ${activeItem === item.id ? styles.active : ''}`}
+            onClick={(e) => handleItemClick(item, e)}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <div className={styles.iconContainer}>
+              {item.icon}
+              {activeItem === item.id && (
+                <motion.div
+                  className={styles.activeIndicator}
+                  layoutId="activeIndicator"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+            </div>
+            <span className={styles.label}>{item.label}</span>
+          </motion.button>
+        ))}
+      </div>
+    </motion.nav>
   )
 }
 
