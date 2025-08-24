@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import MagneticButton from './MagneticButton'
 import styles from './Hero.module.scss'
 
@@ -120,10 +121,15 @@ export default function Hero({ className = '' }: HeroProps) {
             <div className={styles.imageFrame}>
               <div className={styles.slideshow}>
                 {images.map((image, index) => (
-                  <img 
+                  <Image 
                     key={index}
                     src={image.src} 
                     alt={image.alt} 
+                    width={500}
+                    height={400}
+                    sizes="(max-width: 768px) 100vw, 500px"
+                    quality={85}
+                    priority={index === 0}
                     className={`${styles.heroImage} ${index === currentImageIndex ? styles.active : ''}`}
                   />
                 ))}

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense } from 'react'
+import React, { Suspense, memo } from 'react'
 import { MeshGradient } from '@paper-design/shaders-react'
 import styles from './PaperBackground.module.scss'
 
@@ -9,7 +9,7 @@ interface PaperBackgroundProps {
   children?: React.ReactNode
 }
 
-export default function PaperBackground({ className = '', children }: PaperBackgroundProps) {
+const PaperBackground = memo(function PaperBackground({ className = '', children }: PaperBackgroundProps) {
   return (
     <div className={`${styles.container} ${className}`}>
       {/* Fallback background */}
@@ -39,4 +39,6 @@ export default function PaperBackground({ className = '', children }: PaperBackg
       )}
     </div>
   )
-}
+})
+
+export default PaperBackground

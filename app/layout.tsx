@@ -8,6 +8,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-primary',
   display: 'swap',
   preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
 })
 
 const instrumentSerif = Instrument_Serif({
@@ -15,6 +16,7 @@ const instrumentSerif = Instrument_Serif({
   weight: '400',
   variable: '--font-accent',
   display: 'swap',
+  fallback: ['Georgia', 'Times New Roman', 'serif']
 })
 
 export const viewport: Viewport = {
@@ -95,10 +97,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#8b5cf6" />
       </head>
       <body suppressHydrationWarning>
         {/* Skip to main content link for accessibility */}
@@ -142,6 +147,65 @@ export default function RootLayout({ children }: RootLayoutProps) {
               }
               console.log('Track:', eventName, payload);
             };
+          `}
+        </Script>
+
+        {/* Web Vitals monitoring */}
+        <Script id="web-vitals" strategy="afterInteractive">
+          {`
+            function sendToAnalytics(metric) {
+              if (typeof gtag !== 'undefined') {
+                gtag('event', metric.name, {
+                  event_category: 'Web Vitals',
+                  event_label: metric.id,
+                  value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+                  non_interaction: true,
+                });
+              }
+              console.log('Web Vitals:', metric);
+            }
+            
+            // Import and use web-vitals library when available
+            if ('PerformanceObserver' in window) {
+              // LCP
+              new PerformanceObserver((entryList) => {
+                const entries = entryList.getEntries();
+                const lastEntry = entries[entries.length - 1];
+                sendToAnalytics({
+                  name: 'LCP',
+                  value: lastEntry.startTime,
+                  id: 'lcp-' + Date.now()
+                });
+              }).observe({entryTypes: ['largest-contentful-paint']});
+              
+              // FID
+              new PerformanceObserver((entryList) => {
+                const entries = entryList.getEntries();
+                entries.forEach((entry) => {
+                  sendToAnalytics({
+                    name: 'FID',
+                    value: entry.processingStart - entry.startTime,
+                    id: 'fid-' + Date.now()
+                  });
+                });
+              }).observe({entryTypes: ['first-input']});
+              
+              // CLS
+              let clsValue = 0;
+              new PerformanceObserver((entryList) => {
+                const entries = entryList.getEntries();
+                entries.forEach((entry) => {
+                  if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                  }
+                });
+                sendToAnalytics({
+                  name: 'CLS',
+                  value: clsValue,
+                  id: 'cls-' + Date.now()
+                });
+              }).observe({entryTypes: ['layout-shift']});
+            }
           `}
         </Script>
       </body>
