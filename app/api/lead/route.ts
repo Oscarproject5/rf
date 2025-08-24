@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
-// Lead form validation schema
+// Lead form validation schema - matches CallToAction form fields
 const leadSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100),
   email: z.string().email('Invalid email address'),
   phone: z.string().regex(/^\+?[\d\s\-\(\)]+$/, 'Invalid phone number').min(10),
-  city: z.string().min(2, 'City is required').max(50),
+  address: z.string().min(5, 'Address is required').max(200),
   message: z.string().max(500, 'Message too long').optional(),
-  preferredTime: z.enum(['morning', 'afternoon', 'evening', 'anytime']).optional(),
-  honeypot: z.string().max(0, 'Bot detected'), // Honeypot field should be empty
 })
 
 export async function POST(request: NextRequest) {

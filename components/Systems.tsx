@@ -8,7 +8,7 @@ const systems = [
   {
     id: 1,
     name: 'Whole House System Installation',
-    image: '/ChatGPT_Image_Aug_23_2025_05_02_04_PM.png',
+    image: '/Gemini_Generated_Image_3hkq983hkq983hkq.png',
     serviceType: 'Professional Installation Service',
     features: [
       'Complete system installation',
@@ -94,6 +94,7 @@ export default function Systems() {
                   width={600}
                   height={400}
                   className={styles.systemImage}
+                  style={system.id === 1 ? { objectPosition: 'center 40%' } : undefined}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
