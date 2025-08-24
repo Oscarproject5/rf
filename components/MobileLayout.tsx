@@ -6,7 +6,7 @@ import { useDeviceMotion } from '@/hooks/useDeviceMotion'
 import { usePWA } from '@/hooks/usePWA'
 import MobileBottomNav, { HomeIcon, ServicesIcon, SystemsIcon, ContactIcon } from './MobileBottomNav'
 import MobileDrawer from './MobileDrawer'
-import FloatingActionButton, { CallAction, WhatsAppAction, EmailAction, QuoteAction } from './FloatingActionButton'
+import FloatingActionButton from './FloatingActionButton'
 import TiltParallax from './TiltParallax'
 import styles from './MobileLayout.module.scss'
 
@@ -143,12 +143,6 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
     }
   ]
 
-  const floatingActions = [
-    CallAction(),
-    WhatsAppAction(),
-    EmailAction(),
-    QuoteAction()
-  ]
 
   // Track active section for navigation
   useEffect(() => {
@@ -241,9 +235,8 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
         }
       />
 
-      {/* Floating Action Button */}
+      {/* Floating Action Button - Phone Only */}
       <FloatingActionButton
-        actions={floatingActions}
         position="bottom-right"
       />
 
