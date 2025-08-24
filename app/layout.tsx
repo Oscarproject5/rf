@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, Instrument_Serif } from 'next/font/google'
 import Script from 'next/script'
+import MobileLayout from '@/components/MobileLayout'
 import './globals.scss'
 
 const spaceGrotesk = Space_Grotesk({
@@ -111,10 +112,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           Skip to main content
         </a>
 
-        {/* Main content */}
-        <main id="main-content">
-          {children}
-        </main>
+        {/* Mobile Layout Wrapper */}
+        <MobileLayout>
+          {/* Main content */}
+          <main id="main-content">
+            {children}
+          </main>
+        </MobileLayout>
 
         {/* Google Analytics - Replace with actual tracking ID */}
         <Script
@@ -130,6 +134,24 @@ export default function RootLayout({ children }: RootLayoutProps) {
               page_title: document.title,
               page_location: window.location.href,
             });
+          `}
+        </Script>
+
+        {/* Service Worker Registration */}
+        <Script id="service-worker" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(
+                  function(registration) {
+                    console.log('ServiceWorker registration successful');
+                  },
+                  function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                  }
+                );
+              });
+            }
           `}
         </Script>
 

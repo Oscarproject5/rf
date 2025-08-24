@@ -5,7 +5,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#0ea5e9",
+  "theme_color": "#8b5cf6",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -27,5 +27,49 @@
   ],
   "categories": ["business", "utilities"],
   "lang": "en-US",
-  "dir": "ltr"
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Free Water Test",
+      "short_name": "Water Test",
+      "description": "Schedule a free water quality test",
+      "url": "/?shortcut=test",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Call Now",
+      "short_name": "Call",
+      "description": "Call Love Water directly",
+      "url": "tel:+19561234567"
+    },
+    {
+      "name": "Get Quote",
+      "short_name": "Quote",
+      "description": "Request a system quote",
+      "url": "/?shortcut=quote",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }

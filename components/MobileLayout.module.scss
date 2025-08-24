@@ -1,0 +1,169 @@
+.mobileLayout {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #000;
+}
+
+.statusBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top, 0);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  z-index: 60;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 80px; // Space for bottom navigation
+  min-height: 100vh;
+}
+
+.drawerFooter {
+  text-align: center;
+  
+  p {
+    margin: 0.25rem 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+    
+    &:first-child {
+      font-weight: 600;
+      color: #8b5cf6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: #9ca3af;
+      
+      &:first-child {
+        color: #a78bfa;
+      }
+    }
+  }
+}
+
+.edgeIndicator {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60px;
+  background: linear-gradient(
+    to right,
+    rgba(139, 92, 246, 0.6),
+    transparent
+  );
+  border-radius: 0 4px 4px 0;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: edgeHint 3s ease-in-out infinite;
+  animation-delay: 5s;
+}
+
+@keyframes edgeHint {
+  0%, 90%, 100% {
+    opacity: 0;
+  }
+  5%, 85% {
+    opacity: 1;
+  }
+}
+
+// Mobile-specific optimizations
+.mobileLayout {
+  // Smooth scrolling
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  
+  // Prevent zoom on input focus
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  // Optimize touch targets
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  // Prevent text selection on interactive elements
+  button, .interactive {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  // Optimize animations for mobile
+  * {
+    will-change: auto;
+  }
+  
+  // Hardware acceleration for key elements
+  .statusBar,
+  .content,
+  .edgeIndicator {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+  .mobileLayout {
+    background: #000;
+  }
+  
+  .statusBar {
+    background: rgba(0, 0, 0, 0.95);
+  }
+}
+
+// Safe area insets
+@supports (padding: env(safe-area-inset-top)) {
+  .content {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+// Landscape orientation adjustments
+@media (orientation: landscape) and (max-height: 500px) {
+  .content {
+    padding-bottom: 60px; // Smaller bottom padding in landscape
+  }
+  
+  .edgeIndicator {
+    height: 40px; // Smaller indicator in landscape
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .mobileLayout {
+    scroll-behavior: auto;
+  }
+  
+  .edgeIndicator {
+    animation: none;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .statusBar {
+    background: rgba(0, 0, 0, 1);
+    border-bottom: 1px solid #fff;
+  }
+  
+  .edgeIndicator {
+    background: #8b5cf6;
+  }
+}

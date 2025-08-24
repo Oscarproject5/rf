@@ -1,0 +1,416 @@
+.form {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 500px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+
+  @media (prefers-color-scheme: dark) {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+    }
+  }
+
+  p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.5;
+
+    @media (prefers-color-scheme: dark) {
+      color: #9ca3af;
+    }
+  }
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: #d1d5db;
+  }
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem; // Prevents zoom on iOS
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  color: #1f2937;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  }
+
+  &.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #374151;
+    color: white;
+
+    &::placeholder {
+      color: #6b7280;
+    }
+
+    &:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+    }
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.errorText {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &::before {
+    content: '⚠️';
+    font-size: 0.875rem;
+  }
+}
+
+.submitButton {
+  width: 100%;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 60px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &.loading {
+    background: #6b7280;
+  }
+}
+
+.subtext {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+
+  @media (prefers-color-scheme: dark) {
+    border-top-color: #374151;
+  }
+}
+
+.quickAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 2px solid #8b5cf6;
+  border-radius: 12px;
+  color: #8b5cf6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #8b5cf6;
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-color: #a78bfa;
+    color: #a78bfa;
+
+    &:hover {
+      background: #a78bfa;
+      color: #1f2937;
+    }
+  }
+}
+
+.trustBadges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+
+  @media (prefers-color-scheme: dark) {
+    border-top-color: #374151;
+  }
+}
+
+.badge {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+
+  @media (prefers-color-scheme: dark) {
+    background: rgba(167, 139, 250, 0.1);
+    color: #a78bfa;
+    border-color: rgba(167, 139, 250, 0.2);
+  }
+}
+
+.success {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 500px;
+  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+}
+
+.successIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.success h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.success p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.successActions {
+  margin-top: 1.5rem;
+}
+
+.callButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  background: white;
+  color: #10b981;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Mobile-specific optimizations
+@media (max-width: 480px) {
+  .form {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .header h3 {
+    font-size: 1.25rem;
+  }
+
+  .fields {
+    gap: 1.25rem;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    padding: 0.875rem;
+  }
+
+  .quickActions {
+    gap: 0.5rem;
+  }
+
+  .quickAction {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .trustBadges {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .badge {
+    text-align: center;
+  }
+}
+
+// Landscape orientation adjustments
+@media (orientation: landscape) and (max-height: 500px) {
+  .form {
+    margin: 0.5rem auto;
+    padding: 1rem;
+  }
+
+  .fields {
+    gap: 1rem;
+  }
+
+  .header {
+    margin-bottom: 1rem;
+  }
+
+  .quickActions {
+    margin: 1rem 0;
+    padding-top: 1rem;
+  }
+
+  .trustBadges {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .input,
+  .select,
+  .textarea {
+    border-width: 3px;
+  }
+
+  .submitButton {
+    border: 2px solid white;
+  }
+
+  .quickAction {
+    border-width: 3px;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .submitButton,
+  .quickAction,
+  .callButton {
+    transition: none;
+  }
+
+  .submitButton:hover,
+  .quickAction:hover,
+  .callButton:hover {
+    transform: none;
+  }
+}

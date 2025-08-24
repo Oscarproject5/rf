@@ -7,6 +7,9 @@ import Hero from '@/components/Hero'
 import Schema from '@/components/Schema'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
+// Mobile layout wrapper
+import MobileLayout from '@/components/MobileLayout'
+
 // Footer is imported statically but will render last
 import Footer from '@/components/Footer'
 
@@ -50,6 +53,10 @@ const Testimonials = dynamic(() => import('@/components/Testimonials'), {
   loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />
 })
 
+const MobileTestimonials = dynamic(() => import('@/components/MobileTestimonials'), {
+  loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />
+})
+
 const CallToAction = dynamic(() => import('@/components/CallToAction'), {
   loading: () => <div className="skeleton" style={{ height: '200px', margin: '2rem', borderRadius: '1rem' }} />
 })
@@ -77,11 +84,62 @@ function LazySection({ children, className = '', id }: {
   )
 }
 
-// Footer is imported at the top now
+// Sample testimonials data for mobile component
+const testimonialData = [
+  {
+    id: '1',
+    name: 'Maria Rodriguez',
+    location: 'McAllen, TX',
+    rating: 5,
+    text: 'Love Water transformed our home! The water tastes amazing and our skin feels so much softer. Professional service from start to finish.',
+    service: 'Whole House System',
+    date: '2024-01-15'
+  },
+  {
+    id: '2',
+    name: 'Carlos Mendez',
+    location: 'Edinburg, TX',
+    rating: 5,
+    text: 'Best investment we\'ve made for our family. The free testing showed us what was really in our water. Now we have peace of mind.',
+    service: 'RO + Softener',
+    date: '2024-02-03'
+  },
+  {
+    id: '3',
+    name: 'Sarah Johnson',
+    location: 'Mission, TX',
+    rating: 5,
+    text: 'Outstanding customer service! They explained everything clearly and the installation was quick and clean. Highly recommend!',
+    service: 'Reverse Osmosis',
+    date: '2024-02-20'
+  },
+  {
+    id: '4',
+    name: 'Roberto Flores',
+    location: 'Brownsville, TX',
+    rating: 5,
+    text: 'Finally, water that doesn\'t leave spots on our dishes! The whole family notices the difference. Thank you Love Water!',
+    service: 'Water Softener',
+    date: '2024-03-08'
+  }
+]
+
+// Register service worker for PWA functionality
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('SW registered: ', registration)
+      })
+      .catch((registrationError) => {
+        console.log('SW registration failed: ', registrationError)
+      })
+  })
+}
 
 export default function HomePage() {
   return (
-    <>
+    <MobileLayout>
       {/* SEO Schema markup */}
       <Schema />
       
@@ -93,16 +151,16 @@ export default function HomePage() {
       {/* Critical content loads first */}
       <Nav />
       
-      <div className="fade-in stagger-1">
+      <div className="fade-in stagger-1" id="hero">
         <Hero />
       </div>
       
       {/* Secondary content loads progressively with intersection observer */}
-      <LazySection className="fade-in stagger-2">
+      <LazySection className="fade-in stagger-2" id="services">
         <Services />
       </LazySection>
       
-      <LazySection className="fade-in stagger-3">
+      <LazySection className="fade-in stagger-3" id="systems">
         <Systems />
       </LazySection>
       
@@ -112,21 +170,24 @@ export default function HomePage() {
         </section>
       </LazySection>
       
-      <LazySection className="fade-in stagger-5">
-        <Testimonials />
+      <LazySection className="fade-in stagger-5" id="testimonials">
+        <MobileTestimonials testimonials={testimonialData} />
+        <div style={{ display: 'none' }} className="desktop-only">
+          <Testimonials />
+        </div>
       </LazySection>
       
-      <LazySection className="fade-in stagger-6">
+      <LazySection className="fade-in stagger-6" id="faq">
         <FAQ />
       </LazySection>
       
-      <LazySection className="fade-in stagger-7">
+      <LazySection className="fade-in stagger-7" id="contact">
         <CallToAction />
       </LazySection>
       
       <LazySection className="fade-in stagger-8">
         <Footer />
       </LazySection>
-    </>
+    </MobileLayout>
   )
 }
