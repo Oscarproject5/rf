@@ -370,8 +370,12 @@
     display: contents; // This makes children act as direct children of mainGrid
   }
   
+  .headline {
+    order: -2; // Move headline to top on mobile
+  }
+  
   .rightImage {
-    order: -1; // Move image before text on mobile
+    order: -1; // Move image after headline but before description on mobile
     margin: 16px 0 20px 0;
     max-width: 100%;
   }
