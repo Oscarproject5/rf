@@ -7,8 +7,6 @@ import { usePWA } from '@/hooks/usePWA'
 import MobileBottomNav, { HomeIcon, ServicesIcon, SystemsIcon, ContactIcon } from './MobileBottomNav'
 import MobileDrawer from './MobileDrawer'
 import FloatingActionButton, { CallAction, WhatsAppAction, EmailAction, QuoteAction } from './FloatingActionButton'
-import PullToRefresh from './PullToRefresh'
-import MobileReachability from './MobileReachability'
 import TiltParallax from './TiltParallax'
 import styles from './MobileLayout.module.scss'
 
@@ -64,12 +62,6 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
     `
     document.body.appendChild(modal)
     setTimeout(() => modal.remove(), 5000)
-  }
-
-  const handleRefresh = async () => {
-    // Simulate refresh
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    window.location.reload()
   }
 
   const navItems = [
@@ -221,19 +213,13 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
       {/* PWA Status Bar */}
       <div className={styles.statusBar} />
       
-      {/* Reachability Wrapper */}
-      <MobileReachability>
-        {/* Pull to Refresh Wrapper */}
-        <PullToRefresh onRefresh={handleRefresh}>
-          {/* Tilt Parallax Wrapper */}
-          <TiltParallax intensity={0.3}>
-            {/* Main Content */}
-            <div className={styles.content}>
-              {children}
-            </div>
-          </TiltParallax>
-        </PullToRefresh>
-      </MobileReachability>
+      {/* Tilt Parallax Wrapper */}
+      <TiltParallax intensity={0.3}>
+        {/* Main Content */}
+        <div className={styles.content}>
+          {children}
+        </div>
+      </TiltParallax>
 
       {/* Mobile Navigation */}
       <MobileBottomNav

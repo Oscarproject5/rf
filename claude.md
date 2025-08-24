@@ -1,0 +1,1 @@
+When working on mobile version of the application do not mess with desktop version and vise versa.

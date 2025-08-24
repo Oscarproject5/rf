@@ -24,17 +24,10 @@ export default function MobileReachability({
   const { height } = useViewport()
   const { impact } = useHaptics()
 
-  // Show hint on first load for eligible devices
+  // Hint disabled - no popup
   useEffect(() => {
-    if (isMobile && screenSize === 'sm' && height > 700) {
-      const hasSeenHint = localStorage.getItem('reachabilityHintSeen')
-      if (!hasSeenHint) {
-        setTimeout(() => {
-          setShowHint(true)
-        }, 5000) // Show after 5 seconds
-      }
-    }
-  }, [isMobile, screenSize, height])
+    setShowHint(false)
+  }, [])
 
   const toggleReachability = () => {
     const newMode = !isReachabilityMode
@@ -101,49 +94,6 @@ export default function MobileReachability({
         </AnimatePresence>
       </motion.div>
 
-      {/* Usage Hint */}
-      <AnimatePresence>
-        {showHint && (
-          <motion.div
-            className={styles.hintOverlay}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className={styles.hintContent}
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-            >
-              <div className={styles.hintIcon}>
-                <ThumbIcon />
-              </div>
-              <h3 className={styles.hintTitle}>One-Thumb Mode</h3>
-              <p className={styles.hintText}>
-                Tap the reachability button to move content down for easier one-handed use.
-              </p>
-              <div className={styles.hintButtons}>
-                <button
-                  className={styles.hintTry}
-                  onClick={() => {
-                    toggleReachability()
-                    setShowHint(false)
-                  }}
-                >
-                  Try it
-                </button>
-                <button
-                  className={styles.hintDismiss}
-                  onClick={dismissHint}
-                >
-                  Got it
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   )
 }

@@ -6,25 +6,15 @@ const DYNAMIC_CACHE_NAME = 'love-water-dynamic-v1'
 const STATIC_FILES = [
   '/',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/offline.html', // We'll create this fallback page
+  // '/icon-192.png', // TODO: Add icon files
+  // '/icon-512.png', // TODO: Add icon files
+  // '/offline.html', // TODO: Create offline page
 ]
 
-// Install event - cache static files
+// Install event - skip caching for development
 self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...')
-  
-  event.waitUntil(
-    caches.open(STATIC_CACHE_NAME)
-      .then(cache => {
-        console.log('Caching static files')
-        return cache.addAll(STATIC_FILES)
-      })
-      .then(() => {
-        return self.skipWaiting()
-      })
-  )
+  console.log('Service Worker installing (caching disabled for dev)...')
+  self.skipWaiting()
 })
 
 // Activate event - clean up old caches

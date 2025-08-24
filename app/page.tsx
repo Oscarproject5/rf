@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+// import HeroMobileFit from '@/components/HeroMobileFit'
 import Schema from '@/components/Schema'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
@@ -124,18 +125,6 @@ const testimonialData = [
   }
 ]
 
-// Register service worker for PWA functionality
-if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('SW registered: ', registration)
-      })
-      .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError)
-      })
-  })
-}
 
 export default function HomePage() {
   return (

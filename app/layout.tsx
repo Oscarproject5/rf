@@ -7,7 +7,7 @@ import './globals.scss'
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-primary',
-  display: 'swap',
+  display: 'optional', // Changed from 'swap' to 'optional' to prevent layout shift
   preload: true,
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
 })
@@ -16,7 +16,7 @@ const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-accent',
-  display: 'swap',
+  display: 'optional', // Changed from 'swap' to 'optional' to prevent layout shift
   fallback: ['Georgia', 'Times New Roman', 'serif']
 })
 
@@ -96,6 +96,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${instrumentSerif.variable}`}>
       <head>
+        {/* Cache Control - Prevent browser caching during development */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -107,10 +112,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="theme-color" content="#8b5cf6" />
       </head>
       <body suppressHydrationWarning>
-        {/* Skip to main content link for accessibility */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
 
         {/* Mobile Layout Wrapper */}
         <MobileLayout>
@@ -137,19 +138,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           `}
         </Script>
 
-        {/* Service Worker Registration */}
-        <Script id="service-worker" strategy="afterInteractive">
+        {/* Service Worker - Unregister any existing service workers */}
+        <Script id="unregister-service-worker" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {
-              window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(
-                  function(registration) {
-                    console.log('ServiceWorker registration successful');
-                  },
-                  function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                  }
-                );
+              navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                  registration.unregister();
+                  console.log('Service Worker unregistered');
+                }
               });
             }
           `}
