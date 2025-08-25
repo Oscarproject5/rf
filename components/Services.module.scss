@@ -108,19 +108,164 @@
 
 @media (max-width: 768px) {
   .services {
-    padding: 80px 0;
+    padding: 60px 0;
+  }
+
+  .container {
+    padding: 0 16px;
   }
 
   .header {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 
   .card {
-    padding: 32px 24px;
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+
+  .iconWrapper {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 20px;
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .cardDescription {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .feature {
+    padding: 6px 0;
+    font-size: 0.9rem;
+  }
+
+  .checkIcon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services {
+    padding: 50px 0;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+
+  .card {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .iconWrapper {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+
+  .cardTitle {
+    font-size: 1.125rem;
+  }
+
+  .cardDescription {
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .feature {
+    padding: 4px 0;
+    font-size: 0.85rem;
+    gap: 10px;
+  }
+
+  .checkIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 375px) {
+  .services {
+    padding: 40px 0;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .title {
+    font-size: 1.375rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .card {
+    padding: 20px 14px;
+  }
+
+  .iconWrapper {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cardTitle {
+    font-size: 1.05rem;
+  }
+
+  .cardDescription {
+    font-size: 0.875rem;
+  }
+
+  .feature {
+    font-size: 0.825rem;
   }
 }

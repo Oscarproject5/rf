@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import styles from './Footer.module.scss'
 
@@ -82,9 +83,9 @@ export default function Footer() {
             © {currentYear} Love Water. All rights reserved.
           </p>
           <div className={styles.legal}>
-            <a href="/privacy">Privacy Policy</a>
+            <Link href="/privacy">Privacy Policy</Link>
             <span className={styles.separator}>•</span>
-            <a href="/terms">Terms of Service</a>
+            <Link href="/terms">Terms of Service</Link>
           </div>
         </div>
       </div>
