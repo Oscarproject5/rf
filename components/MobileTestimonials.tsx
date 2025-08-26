@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, AnimatePresence, PanInfo } from 'framer-motion'
-import { useGestures } from '@/hooks/useGestures'
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useHaptics } from '@/hooks/useHaptics'
 import { useMobile } from '@/hooks/useMobile'
 import styles from './MobileTestimonials.module.scss'
@@ -33,11 +32,6 @@ export default function MobileTestimonials({
   const { selection, impact } = useHaptics()
   const containerRef = useRef<HTMLDivElement | null>(null)
 
-  const { ref: gestureRef } = useGestures({
-    onSwipeLeft: () => nextTestimonial(),
-    onSwipeRight: () => prevTestimonial(),
-  })
-
   const nextTestimonial = () => {
     if (currentIndex < testimonials.length - 1) {
       setDirection(1)
@@ -62,16 +56,23 @@ export default function MobileTestimonials({
     }
   }
 
-  const handleDragEnd = (_: any, info: PanInfo) => {
-    const threshold = 50
-    const { offset, velocity } = info
+  // Auto-advance testimonials
+  useEffect(() => {
+    if (!isMobile) return
+    
+    const interval = setInterval(() => {
+      if (currentIndex < testimonials.length - 1) {
+        setDirection(1)
+        setCurrentIndex(prev => prev + 1)
+      } else {
+        setDirection(1)
+        setCurrentIndex(0)
+      }
+    }, 5000) // Change every 5 seconds
 
-    if (offset.x > threshold || velocity.x > 500) {
-      prevTestimonial()
-    } else if (offset.x < -threshold || velocity.x < -500) {
-      nextTestimonial()
-    }
-  }
+    return () => clearInterval(interval)
+  }, [currentIndex, testimonials.length, isMobile])
+
 
   const currentTestimonial = testimonials[currentIndex]
 
@@ -91,12 +92,7 @@ export default function MobileTestimonials({
   return (
     <div 
       className={`${styles.container} ${className}`}
-      ref={(el) => {
-        if (el) {
-          containerRef.current = el
-          gestureRef(el)
-        }
-      }}
+      ref={containerRef}
     >
       <div className={styles.header}>
         <h2 className={styles.title}>What Our Customers Say</h2>
@@ -115,13 +111,9 @@ export default function MobileTestimonials({
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
+              x: { type: "spring", stiffness: 200, damping: 35, mass: 0.8 },
+              opacity: { duration: 0.3, ease: "easeInOut" }
             }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.3}
-            onDragEnd={handleDragEnd}
             className={styles.testimonialContainer}
           >
             <TestimonialCard 
@@ -176,10 +168,8 @@ function TestimonialCard({
   isActive?: boolean 
 }) {
   return (
-    <motion.div
+    <div
       className={`${styles.card} ${isActive ? styles.active : ''}`}
-      layout
-      whileTap={{ scale: 0.98 }}
     >
       {/* Rating stars */}
       <div className={styles.rating}>
@@ -222,16 +212,16 @@ function TestimonialCard({
       <div className={styles.date}>
         {new Date(testimonial.date).toLocaleDateString()}
       </div>
-    </motion.div>
+    </div>
   )
 }
 
-// Animation variants
+// Animation variants - smoother transitions
 const slideVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 300 : -300,
+    x: direction > 0 ? 200 : -200,
     opacity: 0,
-    scale: 0.9
+    scale: 0.95
   }),
   center: {
     zIndex: 1,
@@ -241,9 +231,9 @@ const slideVariants = {
   },
   exit: (direction: number) => ({
     zIndex: 0,
-    x: direction < 0 ? 300 : -300,
+    x: direction < 0 ? 200 : -200,
     opacity: 0,
-    scale: 0.9
+    scale: 0.95
   })
 }
 

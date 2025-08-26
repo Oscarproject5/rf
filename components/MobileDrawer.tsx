@@ -118,14 +118,6 @@ export default function MobileDrawer({
               damping: 40,
               mass: 0.8
             }}
-            drag="x"
-            dragConstraints={{ left: -300, right: 0 }}
-            dragElastic={{ left: 0, right: 0.2 }}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            style={{
-              filter: isDragging ? 'brightness(0.9)' : 'brightness(1)'
-            }}
           >
             {/* Header */}
             <div className={styles.header}>

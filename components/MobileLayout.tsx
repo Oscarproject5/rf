@@ -2,12 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { useMobile } from '@/hooks/useMobile'
-import { useDeviceMotion } from '@/hooks/useDeviceMotion'
 import { usePWA } from '@/hooks/usePWA'
 import MobileBottomNav, { HomeIcon, ServicesIcon, SystemsIcon, ContactIcon } from './MobileBottomNav'
 import MobileDrawer from './MobileDrawer'
 import FloatingActionButton from './FloatingActionButton'
-import TiltParallax from './TiltParallax'
 import styles from './MobileLayout.module.scss'
 
 interface MobileLayoutProps {
@@ -19,50 +17,7 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const { isMobile } = useMobile()
-  const { shake } = useDeviceMotion()
   const { isInstallable, installApp, shareApp } = usePWA()
-
-  // Easter egg: Shake to reveal special features
-  useEffect(() => {
-    if (shake.isShaking && shake.shakeCount === 3) {
-      // Show special offer or Easter egg
-      showEasterEgg()
-    }
-  }, [shake])
-
-  const showEasterEgg = () => {
-    // Show a special modal or effect
-    const modal = document.createElement('div')
-    modal.innerHTML = `
-      <div style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-        color: white;
-        padding: 2rem;
-        border-radius: 20px;
-        text-align: center;
-        z-index: 9999;
-        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
-      ">
-        <h3>🎉 You found it!</h3>
-        <p>Triple shake for 15% off your first service!</p>
-        <button onclick="this.parentElement.parentElement.remove()" style="
-          background: white;
-          color: #8b5cf6;
-          border: none;
-          padding: 0.5rem 1rem;
-          border-radius: 8px;
-          margin-top: 1rem;
-          cursor: pointer;
-        ">Claim Offer</button>
-      </div>
-    `
-    document.body.appendChild(modal)
-    setTimeout(() => modal.remove(), 5000)
-  }
 
   const navItems = [
     {
@@ -207,13 +162,10 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
       {/* PWA Status Bar */}
       <div className={styles.statusBar} />
       
-      {/* Tilt Parallax Wrapper */}
-      <TiltParallax intensity={0.3}>
-        {/* Main Content */}
-        <div className={styles.content}>
-          {children}
-        </div>
-      </TiltParallax>
+      {/* Main Content */}
+      <div className={styles.content}>
+        {children}
+      </div>
 
       {/* Mobile Navigation */}
       <MobileBottomNav
