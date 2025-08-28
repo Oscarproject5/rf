@@ -286,6 +286,10 @@ body {
   body {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    // Optimize for smooth mobile scrolling
+    scroll-behavior: smooth;
   }
   
   
@@ -320,11 +324,11 @@ body {
   // Mobile-optimized scrolling
   .scroll-container {
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: y mandatory;
+    overscroll-behavior: contain;
   }
   
   .scroll-item {
-    scroll-snap-align: start;
+    // Removed scroll snap for smoother scrolling
   }
   
   // Hide desktop-only elements
@@ -417,10 +421,12 @@ body {
 }
 
 .fade-in {
+  opacity: 1;
   animation: fadeIn 0.3s ease-out;
 }
 
 .fade-in-scale {
+  opacity: 1;
   animation: fadeInScale 0.3s ease-out;
 }
 

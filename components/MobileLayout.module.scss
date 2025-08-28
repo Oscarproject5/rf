@@ -51,7 +51,7 @@
   position: fixed;
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
+  margin-top: -30px; // Use margin instead of transform
   width: 4px;
   height: 60px;
   background: linear-gradient(
@@ -102,15 +102,7 @@
   
   // Optimize animations for mobile
   * {
-    will-change: auto;
-  }
-  
-  // Hardware acceleration for key elements
-  .statusBar,
-  .content,
-  .edgeIndicator {
-    transform: translateZ(0);
-    backface-visibility: hidden;
+    // Removed will-change for better performance
   }
 }
 

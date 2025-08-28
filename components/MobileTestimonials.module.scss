@@ -317,9 +317,7 @@
 
 // Performance optimizations
 .card {
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  // Removed hardware acceleration for smoother scrolling
 }
 
 // Reduced motion support
