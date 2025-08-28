@@ -16,7 +16,7 @@ const products = [
       'Protects appliances & plumbing',
       'Battery backup included'
     ],
-    image: '/images/products/hydro-spring.png',
+    image: '/images/products/hydro-spring.webp',
     badge: 'Most Popular',
     link: '#contact'
   },
@@ -46,7 +46,7 @@ const products = [
       'Antioxidant properties',
       'Easy maintenance'
     ],
-    image: '/images/products/alkaline-filter.png',
+    image: '/images/products/alkaline-filter.webp',
     badge: 'Health Focused',
     link: '#contact'
   }
