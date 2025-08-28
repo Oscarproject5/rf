@@ -29,7 +29,7 @@
       "name": "Free Water Test",
       "short_name": "Water Test",
       "description": "Schedule a free water quality test",
-      "url": "/?shortcut=test",
+      "url": "/#contact",
       "icons": [
         {
           "src": "/logo.jpg",
@@ -38,16 +38,10 @@
       ]
     },
     {
-      "name": "Call Now",
-      "short_name": "Call",
-      "description": "Call Love Water directly",
-      "url": "tel:+19565791750"
-    },
-    {
       "name": "Get Quote",
       "short_name": "Quote",
       "description": "Request a system quote",
-      "url": "/?shortcut=quote",
+      "url": "/#contact",
       "icons": [
         {
           "src": "/logo.jpg",

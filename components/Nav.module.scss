@@ -27,6 +27,7 @@
   align-items: center;
   justify-content: space-between;
   height: 72px;
+  min-height: 72px; // Prevent layout shift
 }
 
 .logo {
@@ -52,14 +53,19 @@
 .logoIcon {
   width: 36px;
   height: 36px;
+  min-width: 36px; // Prevent layout shift
+  min-height: 36px; // Prevent layout shift
   color: #0ea5e9;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   
   @media (max-width: 768px) {
     width: 32px;
     height: 32px;
+    min-width: 32px;
+    min-height: 32px;
   }
 }
 
@@ -105,6 +111,7 @@
   will-change: transform;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+  aspect-ratio: 1; // Prevent layout shift
   
   @media (max-width: 768px) {
     image-rendering: auto;

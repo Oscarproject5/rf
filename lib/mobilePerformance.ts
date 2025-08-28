@@ -66,12 +66,22 @@ export function preloadCriticalAssets(assets: string[]): void {
     const link = document.createElement('link')
     link.rel = 'preload'
     
+    // Determine the correct 'as' attribute based on file extension
     if (asset.endsWith('.css')) {
       link.as = 'style'
-    } else if (asset.match(/\.(jpg|jpeg|png|webp|avif)$/)) {
+    } else if (asset.match(/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i)) {
       link.as = 'image'
     } else if (asset.endsWith('.js')) {
       link.as = 'script'
+    } else if (asset.match(/\.(woff|woff2|ttf|otf|eot)$/i)) {
+      link.as = 'font'
+      link.crossOrigin = 'anonymous'
+    } else if (asset.match(/\.(mp4|webm|ogg)$/i)) {
+      link.as = 'video'
+    } else {
+      // Default to fetch for unknown types
+      link.as = 'fetch'
+      link.crossOrigin = 'anonymous'
     }
     
     link.href = asset

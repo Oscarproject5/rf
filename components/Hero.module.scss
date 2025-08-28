@@ -1,11 +1,13 @@
 .hero {
   position: relative;
   min-height: 100vh;
+  height: 100vh; // Fixed height to prevent shift
   display: flex;
   align-items: center;
   padding: 100px 0 60px 0; // Reduced top padding to show badges
   overflow: hidden;
   background: transparent; // Let body PaperBackground show through
+  contain: layout style; // Optimize rendering
 }
 
 .container {
