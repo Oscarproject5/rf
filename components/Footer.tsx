@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import styles from './Footer.module.scss'
 
 export default function Footer() {
@@ -13,7 +14,19 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={styles.column}>
-            <h3 className={styles.logo}>Love Water</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <Image 
+                src="/logo.jpg" 
+                alt="Love Water Logo" 
+                width={48} 
+                height={48}
+                style={{ 
+                  borderRadius: '50%',
+                  objectFit: 'cover'
+                }}
+              />
+              <h3 className={styles.logo}>Love Water</h3>
+            </div>
             <p className={styles.tagline}>
               Pure water solutions for Rio Grande Valley families since 2009.
             </p>

@@ -91,7 +91,7 @@ export default function Hero({ className = '' }: HeroProps) {
           {/* Left content */}
           <div className={styles.leftContent}>
             <h1 className={styles.headline}>
-              Pure Water.
+              Love Water.
               <br />
               Protected Families.
               <br />

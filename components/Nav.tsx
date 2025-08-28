@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 import MagneticButton from './MagneticButton'
 import GooeyFilterDefs from './GooeyFilterDefs'
 import styles from './Nav.module.scss'
@@ -119,18 +120,17 @@ export default function Nav({ className = '' }: NavProps) {
             whileTap={{ scale: 0.95 }}
           >
             <div className={styles.logoIcon}>
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" opacity="0.2"/>
-                <path 
-                  d="M20 8C20 8 12 16 12 24C12 28.4183 15.5817 32 20 32C24.4183 32 28 28.4183 28 24C28 16 20 8 20 8Z" 
-                  fill="currentColor"
-                />
-                <path 
-                  d="M20 20C20 20 16 24 16 26C16 27.1046 16.8954 28 18 28C19.1046 28 20 27.1046 20 26C20 24 20 20 20 20Z" 
-                  fill="white"
-                  opacity="0.3"
-                />
-              </svg>
+              <Image 
+                src="/logo.jpg" 
+                alt="Love Water Logo" 
+                width={40} 
+                height={40}
+                style={{ 
+                  borderRadius: '50%',
+                  objectFit: 'cover'
+                }}
+                priority
+              />
             </div>
             
             <motion.span 
