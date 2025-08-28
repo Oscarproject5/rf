@@ -40,7 +40,6 @@ export default function Footer() {
             </p>
             <div className={styles.certifications}>
               <div className={styles.badge}>Licensed & Insured</div>
-              <div className={styles.badge}>BBB A+ Rating</div>
             </div>
           </div>
 
