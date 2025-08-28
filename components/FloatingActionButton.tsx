@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion'
 import { useMobile } from '@/hooks/useMobile'
 import { useHaptics } from '@/hooks/useHaptics'
-import { useViewport } from '@/hooks/useViewport'
 import styles from './FloatingActionButton.module.scss'
 
 interface FloatingActionButtonProps {
@@ -17,7 +16,6 @@ export default function FloatingActionButton({
 }: FloatingActionButtonProps) {
   const { isMobile } = useMobile()
   const { impact } = useHaptics()
-  const { safeAreaBottom, isScrollingDown } = useViewport()
 
   const handleCallClick = () => {
     impact('medium')
@@ -29,11 +27,6 @@ export default function FloatingActionButton({
   return (
     <div 
       className={`${styles.fabContainer} ${styles[position]} ${className}`}
-      style={{
-        bottom: `${safeAreaBottom + 80}px`, // Add space above bottom nav
-        transform: isScrollingDown ? 'translateY(100px)' : 'translateY(0)',
-        transition: 'transform 0.3s ease'
-      }}
     >
       {/* Main FAB - Phone Only */}
       <motion.button

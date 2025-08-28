@@ -198,7 +198,11 @@
   }
 }
 
-// Safe area support
+// Fixed positioning with safe area support
+.fabContainer {
+  bottom: 80px; // Fixed distance from bottom
+}
+
 @supports (bottom: env(safe-area-inset-bottom)) {
   .fabContainer {
     bottom: calc(80px + env(safe-area-inset-bottom));
