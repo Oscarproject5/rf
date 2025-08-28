@@ -39,6 +39,11 @@
   font-size: 1.25rem;
   transition: transform 0.3s ease;
   
+  @media (max-width: 768px) {
+    gap: 8px;
+    font-size: 1.1rem;
+  }
+  
   &:hover {
     transform: translateY(-1px);
   }
@@ -51,12 +56,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (max-width: 768px) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .logoMain {
   font-weight: 600;
   letter-spacing: -0.02em;
   color: #ffffff;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
 }
 
 .logoTag {
@@ -69,6 +84,16 @@
   border: 1px solid rgba(14, 165, 233, 0.2);
   border-radius: 4px;
   letter-spacing: 0.05em;
+  
+  @media (max-width: 768px) {
+    font-size: 0.65rem;
+    margin-left: 4px;
+    padding: 1px 4px;
+  }
+  
+  @media (max-width: 480px) {
+    display: none; // Hide tag on very small screens
+  }
 }
 
 .logoImage {
@@ -76,12 +101,26 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  display: block;
+  will-change: transform;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  
+  @media (max-width: 768px) {
+    image-rendering: auto;
+  }
 }
 
 .logoText {
   display: flex;
   align-items: baseline;
   gap: 0.25rem;
+  
+  @media (max-width: 768px) {
+    @media (max-width: 400px) {
+      display: none; // Hide text on very small screens to save space
+    }
+  }
 }
 
 .desktopNav {

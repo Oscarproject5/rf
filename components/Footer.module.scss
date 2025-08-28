@@ -25,12 +25,40 @@
   gap: 16px;
 }
 
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  
+  @media (max-width: 768px) {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+}
+
+.footerLogoImage {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  
+  @media (max-width: 768px) {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
 .logo {
   font-size: 1.75rem;
   font-weight: 400;
   color: #ffffff;
   letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
 }
 
 .tagline {

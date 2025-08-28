@@ -9,7 +9,8 @@ export default function CallToAction() {
     name: '',
     phone: '',
     email: '',
-    address: ''
+    address: '',
+    website: '' // Honeypot field
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -27,7 +28,7 @@ export default function CallToAction() {
       
       if (response.ok) {
         setSubmitStatus('success')
-        setFormData({ name: '', phone: '', email: '', address: '' })
+        setFormData({ name: '', phone: '', email: '', address: '', website: '' })
       } else {
         setSubmitStatus('error')
       }
@@ -111,6 +112,18 @@ export default function CallToAction() {
                   />
                 </div>
               </div>
+
+              {/* Honeypot field - hidden from users */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
 
               <button
                 type="submit"
