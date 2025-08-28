@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense, memo } from 'react'
+import React, { Suspense, memo, useEffect, useState } from 'react'
 import { MeshGradient } from '@paper-design/shaders-react'
 import styles from './PaperBackground.module.scss'
 
@@ -10,6 +10,12 @@ interface PaperBackgroundProps {
 }
 
 const PaperBackground = memo(function PaperBackground({ className = '', children }: PaperBackgroundProps) {
+  const [isDesktop, setIsDesktop] = useState(false)
+  
+  useEffect(() => {
+    setIsDesktop(window.innerWidth > 768)
+  }, [])
+  
   return (
     <div className={`${styles.container} ${className}`}>
       {/* Fallback background */}
@@ -23,13 +29,15 @@ const PaperBackground = memo(function PaperBackground({ className = '', children
         />
       </Suspense>
 
-      {/* Ambient glow overlay */}
-      <Suspense fallback={null}>
-        <MeshGradient
-          colors={['#000000', '#0891b2', '#06b6d4', '#000000']}
-          className={styles.wireframe}
-        />
-      </Suspense>
+      {/* Ambient glow overlay - only on mobile for performance */}
+      {!isDesktop && (
+        <Suspense fallback={null}>
+          <MeshGradient
+            colors={['#000000', '#0891b2', '#06b6d4', '#000000']}
+            className={styles.wireframe}
+          />
+        </Suspense>
+      )}
 
       {/* Content */}
       {children && (

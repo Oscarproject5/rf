@@ -172,8 +172,12 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
   }, [isMobile])
 
   if (!isMobile) {
-    // Return desktop layout
-    return <div className={className}>{children}</div>
+    // Return desktop layout with proper animation container
+    return (
+      <div className={`desktop-layout ${className}`}>
+        {children}
+      </div>
+    )
   }
 
   return (
