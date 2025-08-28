@@ -125,11 +125,9 @@ export default function Nav({ className = '' }: NavProps) {
                 alt="Love Water Logo" 
                 width={40} 
                 height={40}
-                style={{ 
-                  borderRadius: '50%',
-                  objectFit: 'cover'
-                }}
+                className={styles.logoImage}
                 priority
+                sizes="(max-width: 768px) 32px, 40px"
               />
             </div>
             
