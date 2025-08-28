@@ -29,6 +29,10 @@ const Systems = dynamic(() => import('@/components/Systems'), {
   loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem', borderRadius: '1rem' }} />
 })
 
+const Products = dynamic(() => import('@/components/Products'), {
+  loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem', borderRadius: '1rem' }} />
+})
+
 // Heavy 3D component - only load when needed
 const WaterSoftenerDiagram = dynamic(
   () => import('@/components/WaterSoftenerDiagram'),
@@ -153,28 +157,32 @@ export default function HomePage() {
         <Systems />
       </LazySection>
       
-      <LazySection className="fade-in stagger-4" id="how-it-works">
+      <LazySection className="fade-in stagger-4" id="products">
+        <Products />
+      </LazySection>
+      
+      <LazySection className="fade-in stagger-5" id="how-it-works">
         <section style={{ padding: '4rem 0' }}>
           <WaterSoftenerDiagram />
         </section>
       </LazySection>
       
-      <LazySection className="fade-in stagger-5" id="testimonials">
+      <LazySection className="fade-in stagger-6" id="testimonials">
         <MobileTestimonials testimonials={testimonialData} />
         <div style={{ display: 'none' }} className="desktop-only">
           <Testimonials />
         </div>
       </LazySection>
       
-      <LazySection className="fade-in stagger-6" id="faq">
+      <LazySection className="fade-in stagger-7" id="faq">
         <FAQ />
       </LazySection>
       
-      <LazySection className="fade-in stagger-7" id="contact">
+      <LazySection className="fade-in stagger-8" id="contact">
         <CallToAction />
       </LazySection>
       
-      <LazySection className="fade-in stagger-8">
+      <LazySection>
         <Footer />
       </LazySection>
     </MobileLayout>

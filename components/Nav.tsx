@@ -14,6 +14,7 @@ interface NavProps {
 const navItems = [
   { href: '#services', label: 'Solutions' },
   { href: '#systems', label: 'Systems' },
+  { href: '#products', label: 'Products' },
   { href: '#testimonials', label: 'Reviews' },
   { href: '#faq', label: 'FAQ' },
   { href: '#contact', label: 'Contact' }
