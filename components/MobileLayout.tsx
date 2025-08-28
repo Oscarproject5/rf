@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useMobile } from '@/hooks/useMobile'
 import { usePWA } from '@/hooks/usePWA'
+import { initializeMobileOptimizations } from '@/lib/mobilePerformance'
 import MobileBottomNav, { HomeIcon, ServicesIcon, SystemsIcon, ContactIcon } from './MobileBottomNav'
 import MobileDrawer from './MobileDrawer'
 import FloatingActionButton from './FloatingActionButton'
@@ -18,8 +19,15 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
   const [activeSection, setActiveSection] = useState('home')
   const { isMobile } = useMobile()
   const { isInstallable, installApp, shareApp } = usePWA()
+  
+  // Initialize mobile performance optimizations
+  useEffect(() => {
+    if (isMobile) {
+      initializeMobileOptimizations()
+    }
+  }, [isMobile])
 
-  const navItems = [
+  const navItems = useMemo(() => [
     {
       id: 'home',
       icon: <HomeIcon />,
@@ -44,9 +52,9 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
       label: 'Contact',
       href: '#contact'
     }
-  ]
+  ], [])
 
-  const drawerItems = [
+  const drawerItems = useMemo(() => [
     {
       id: 'home',
       label: 'Home',
@@ -96,7 +104,7 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
       label: 'Share',
       onClick: shareApp
     }
-  ]
+  ], [isInstallable, installApp, shareApp])
 
 
   // Track active section for navigation
@@ -126,29 +134,40 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
     return () => observer.disconnect()
   }, [isMobile])
 
-  // Add edge swipe detection for drawer
+  // Add edge swipe detection for drawer with throttling
   useEffect(() => {
     if (!isMobile) return
 
     let startX = 0
+    let isSwipeActive = false
     const edgeThreshold = 20
 
     const handleTouchStart = (e: TouchEvent) => {
       startX = e.touches[0].clientX
+      isSwipeActive = startX <= edgeThreshold
     }
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (startX <= edgeThreshold && e.touches[0].clientX > startX + 50) {
+      if (!isSwipeActive) return // Early exit if not edge swipe
+      
+      if (e.touches[0].clientX > startX + 50) {
         setIsDrawerOpen(true)
+        isSwipeActive = false // Prevent multiple triggers
       }
+    }
+
+    const handleTouchEnd = () => {
+      isSwipeActive = false
     }
 
     document.addEventListener('touchstart', handleTouchStart, { passive: true })
     document.addEventListener('touchmove', handleTouchMove, { passive: true })
+    document.addEventListener('touchend', handleTouchEnd, { passive: true })
 
     return () => {
       document.removeEventListener('touchstart', handleTouchStart)
       document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleTouchEnd)
     }
   }, [isMobile])
 

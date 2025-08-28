@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048], // Added 320 for small mobile
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
@@ -42,17 +42,18 @@ const nextConfig = {
       }
     }
 
-    // Optimize bundle splitting for better caching
+    // Optimize bundle splitting for better caching and mobile performance
     if (config.optimization && config.optimization.splitChunks) {
       config.optimization.splitChunks.cacheGroups = {
         ...config.optimization.splitChunks.cacheGroups,
-        // Three.js and related 3D libraries
+        // Three.js and related 3D libraries - load async on mobile
         three: {
           name: 'three',
           test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
-          chunks: 'all',
+          chunks: 'async', // Changed to async for mobile
           priority: 30,
-          enforce: true
+          enforce: true,
+          reuseExistingChunk: true
         },
         // Animation libraries
         animations: {
@@ -60,15 +61,17 @@ const nextConfig = {
           test: /[\\/]node_modules[\\/](framer-motion|lottie-react)[\\/]/,
           chunks: 'all',
           priority: 20,
-          enforce: true
+          enforce: true,
+          reuseExistingChunk: true
         },
-        // Shader libraries
+        // Shader libraries - load async on mobile
         shaders: {
           name: 'shaders',
           test: /[\\/]node_modules[\\/]@paper-design[\\/]/,
-          chunks: 'all',
+          chunks: 'async', // Changed to async for mobile
           priority: 25,
-          enforce: true
+          enforce: true,
+          reuseExistingChunk: true
         },
         // Common utilities
         utils: {
@@ -76,15 +79,27 @@ const nextConfig = {
           test: /[\\/]node_modules[\\/](clsx|zod|next-seo)[\\/]/,
           chunks: 'all',
           priority: 15,
-          enforce: true
+          enforce: true,
+          reuseExistingChunk: true
+        },
+        // Mobile-specific chunks
+        mobile: {
+          name: 'mobile',
+          test: /[\\/](components|hooks)[\\/]Mobile/,
+          chunks: 'all',
+          priority: 35,
+          enforce: true,
+          reuseExistingChunk: true
         }
       }
     }
 
-    // Tree shaking optimizations
+    // Tree shaking and minification optimizations
     if (!dev) {
       config.optimization.usedExports = true
       config.optimization.sideEffects = false
+      config.optimization.minimize = true
+      config.optimization.concatenateModules = true // Module concatenation for smaller bundles
     }
 
     return config
@@ -95,10 +110,10 @@ const nextConfig = {
   trailingSlash: false,
   reactStrictMode: true,
   
-  // Enhanced caching and performance
+  // Enhanced caching and performance for mobile
   onDemandEntries: {
-    maxInactiveAge: 60 * 1000, // 1 minute
-    pagesBufferLength: 5
+    maxInactiveAge: 30 * 1000, // 30 seconds for mobile memory optimization
+    pagesBufferLength: 3 // Reduced for mobile memory
   },
   
   // Custom headers for performance
@@ -122,6 +137,10 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'geolocation=(self), microphone=(), camera=()'
           }
         ]
       },

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 
 interface MobileDetection {
   isMobile: boolean
@@ -32,6 +32,7 @@ export function useMobile(): MobileDetection {
     hasNotch: false,
     supportsHover: false,
   })
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const detectDevice = useCallback(() => {
     if (typeof window === 'undefined') return
@@ -100,8 +101,14 @@ export function useMobile(): MobileDetection {
   useEffect(() => {
     detectDevice()
 
+    // Debounced resize handler for better performance
     const handleResize = () => {
-      detectDevice()
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current)
+      }
+      resizeTimeoutRef.current = setTimeout(() => {
+        detectDevice()
+      }, 150) // Debounce for 150ms
     }
 
     const handleOrientationChange = () => {
@@ -109,10 +116,13 @@ export function useMobile(): MobileDetection {
       setTimeout(detectDevice, 100)
     }
 
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('orientationchange', handleOrientationChange)
+    window.addEventListener('resize', handleResize, { passive: true })
+    window.addEventListener('orientationchange', handleOrientationChange, { passive: true })
 
     return () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current)
+      }
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleOrientationChange)
     }

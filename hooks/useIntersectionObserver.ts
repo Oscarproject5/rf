@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 interface UseIntersectionObserverOptions {
   threshold?: number | number[]
@@ -29,24 +29,52 @@ export function useIntersectionObserver(options: UseIntersectionObserverOptions 
 
     if (!hasIOSupport || frozen || !element) return
 
-    const observerParams = { threshold, root, rootMargin }
-    const observer = new IntersectionObserver(([entry]) => {
-      setEntry(entry)
-      setIsVisible(entry.isIntersecting)
+    // Use requestIdleCallback for non-critical observations on mobile
+    const setupObserver = () => {
+      const observerParams = { threshold, root, rootMargin }
+      const observer = new IntersectionObserver((entries) => {
+        const [entry] = entries
+        
+        // Use requestAnimationFrame for smoother updates
+        requestAnimationFrame(() => {
+          setEntry(entry)
+          setIsVisible(entry.isIntersecting)
+        })
+        
+        if (entry.isIntersecting && triggerOnce) {
+          observer.disconnect()
+        }
+      }, observerParams)
+
+      observer.observe(element)
       
-      if (entry.isIntersecting && triggerOnce) {
-        observer.disconnect()
+      return observer
+    }
+
+    // Delay observer setup slightly for better initial load performance
+    const timeoutId = setTimeout(() => {
+      const observer = setupObserver()
+      // Store observer for cleanup
+      elementRef.current?.setAttribute('data-observer-id', 'active')
+      
+      // Cleanup function
+      const cleanup = () => observer?.disconnect()
+      window.addEventListener('beforeunload', cleanup)
+      
+      return () => {
+        cleanup()
+        window.removeEventListener('beforeunload', cleanup)
       }
-    }, observerParams)
+    }, 10)
 
-    observer.observe(element)
-
-    return () => observer.disconnect()
+    return () => {
+      clearTimeout(timeoutId)
+    }
   }, [threshold, root, rootMargin, frozen, triggerOnce])
 
-  const callbackRef = (element: Element | null) => {
+  const callbackRef = useCallback((element: Element | null) => {
     elementRef.current = element || undefined
-  }
+  }, [])
 
   return { ref: callbackRef, entry, isVisible }
 }

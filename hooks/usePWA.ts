@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 
 interface PWAInstallPrompt {
   prompt: () => Promise<void>
@@ -27,6 +27,9 @@ export function usePWA() {
     isOffline: false,
     isUpdateAvailable: false
   })
+  
+  // Use refs to prevent unnecessary re-renders
+  const installPromptRef = useRef<PWAInstallPrompt | null>(null)
 
   // Check if app is running in standalone mode (installed)
   const checkStandaloneMode = useCallback(() => {
@@ -50,27 +53,36 @@ export function usePWA() {
     return document.referrer.includes('android-app://')
   }, [])
 
-  // Handle install prompt
+  // Handle install prompt - optimized to prevent re-renders
   const handleInstallPrompt = useCallback((e: Event) => {
     e.preventDefault()
     const deferredPrompt = e as any
-
-    setPwaData(prev => ({
-      ...prev,
-      installPrompt: deferredPrompt,
-      canInstall: true,
-      isInstallable: true
-    }))
+    
+    installPromptRef.current = deferredPrompt
+    
+    // Only update state once
+    setPwaData(prev => {
+      if (prev.canInstall) return prev // Prevent unnecessary updates
+      return {
+        ...prev,
+        installPrompt: deferredPrompt,
+        canInstall: true,
+        isInstallable: true
+      }
+    })
   }, [])
 
-  // Install the PWA
+  // Install the PWA - use ref to avoid dependency issues
   const installApp = useCallback(async () => {
-    if (!pwaData.installPrompt) return false
+    const prompt = installPromptRef.current || pwaData.installPrompt
+    if (!prompt) return false
 
     try {
-      await pwaData.installPrompt.prompt()
-      const { outcome } = await pwaData.installPrompt.userChoice
-
+      await prompt.prompt()
+      const { outcome } = await prompt.userChoice
+      
+      installPromptRef.current = null
+      
       setPwaData(prev => ({
         ...prev,
         installPrompt: null,
@@ -85,25 +97,30 @@ export function usePWA() {
     }
   }, [pwaData.installPrompt])
 
-  // Check for updates
+  // Check for updates - optimized with early returns
   const checkForUpdates = useCallback(() => {
-    if ('serviceWorker' in navigator) {
+    if (!('serviceWorker' in navigator)) return
+    
+    // Defer update check to avoid blocking initial load
+    requestIdleCallback(() => {
       navigator.serviceWorker.ready.then(registration => {
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing
-          if (newWorker) {
-            newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                setPwaData(prev => ({
-                  ...prev,
-                  isUpdateAvailable: true
-                }))
-              }
-            })
-          }
+          if (!newWorker) return
+          
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              setPwaData(prev => ({
+                ...prev,
+                isUpdateAvailable: true
+              }))
+            }
+          })
         })
+      }).catch(() => {
+        // Silently fail if service worker not available
       })
-    }
+    }, { timeout: 2000 })
   }, [])
 
   // Update the app
@@ -154,7 +171,7 @@ export function usePWA() {
   }, [])
 
   useEffect(() => {
-    // Initialize PWA data
+    // Initialize PWA data - batch updates
     const isStandalone = checkStandaloneMode()
     const isInstalled = checkInstalled()
 
@@ -165,10 +182,10 @@ export function usePWA() {
       isOffline: !navigator.onLine
     }))
 
-    // Event listeners
-    window.addEventListener('beforeinstallprompt', handleInstallPrompt)
-    window.addEventListener('online', updateNetworkStatus)
-    window.addEventListener('offline', updateNetworkStatus)
+    // Event listeners with passive flag for better performance
+    window.addEventListener('beforeinstallprompt', handleInstallPrompt, { passive: false })
+    window.addEventListener('online', updateNetworkStatus, { passive: true })
+    window.addEventListener('offline', updateNetworkStatus, { passive: true })
     
     // Check for app installation
     window.addEventListener('appinstalled', () => {

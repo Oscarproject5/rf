@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import MagneticButton from './MagneticButton'
 import styles from './Hero.module.scss'
@@ -10,24 +10,28 @@ interface HeroProps {
 }
 
 export default function Hero({ className = '' }: HeroProps) {
-  const images = [
+  const images = useMemo(() => [
     {
       src: '/close-up-kid-filling-bottle-with-water.jpg',
-      alt: 'Child filling water bottle - clean water for families'
+      alt: 'Child filling water bottle - clean water for families',
+      priority: true // Prioritize first image for faster initial load
     },
     {
       src: '/portrait-man-home-drinking-glass-water.jpg',
-      alt: 'Man enjoying clean drinking water at home'
+      alt: 'Man enjoying clean drinking water at home',
+      priority: false
     },
     {
       src: '/H2O-56SEM-R-48-1_l2.jpg',
-      alt: 'Professional water softener system for whole home filtration'
+      alt: 'Professional water softener system for whole home filtration',
+      priority: false
     },
     {
       src: '/Gemini_Generated_Image_vg90hvvg90hvvg90.png',
-      alt: 'Modern water purification system'
+      alt: 'Modern water purification system',
+      priority: false
     }
-  ]
+  ], [])
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -42,14 +46,20 @@ export default function Hero({ className = '' }: HeroProps) {
     return () => clearTimeout(timeout)
   }, [currentImageIndex, images.length])
 
-  const handleCTAClick = () => {
+  const handleCTAClick = useCallback(() => {
     if (typeof window !== 'undefined') {
       const contactElement = document.getElementById('contact')
       if (contactElement) {
-        contactElement.scrollIntoView({ behavior: 'smooth' })
+        // Use requestAnimationFrame for smoother scrolling on mobile
+        requestAnimationFrame(() => {
+          contactElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          })
+        })
       }
     }
-  }
+  }, [])
 
   return (
     <section id="hero" className={`${styles.hero} ${className}`}>
