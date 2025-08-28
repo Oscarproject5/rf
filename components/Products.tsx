@@ -7,29 +7,29 @@ import styles from './Products.module.scss'
 const products = [
   {
     id: 'hydro-spring',
-    name: 'Hydro-Spring',
-    description: 'Premium whole house water filtration system with advanced multi-stage filtration technology for clean, healthy water throughout your home.',
+    name: 'Hydro-Spring Water Softener',
+    description: 'High-performance water softening system with advanced microprocessor control and programmable regeneration cycles for optimal water quality throughout your home.',
     features: [
-      'Whole house filtration',
-      'Removes chlorine & contaminants',
-      'Improves taste and odor',
-      'Long-lasting filters',
-      'Professional installation'
+      'Solid state microprocessor control',
+      '36 pre-programmed regeneration cycles',
+      'Reduces soap usage by 75%',
+      'Protects appliances & plumbing',
+      'Battery backup included'
     ],
     image: '/images/hydro-spring.jpg',
     badge: 'Most Popular',
-    link: 'https://www.honestwaterco.com/products/hydro-spring'
+    link: '#contact'
   },
   {
     id: 'intelliclear-600',
-    name: 'IntelliClear 600',
-    description: 'Smart water softener system with intelligent regeneration technology that adapts to your water usage patterns for maximum efficiency.',
+    name: 'IntelliClear 600 RO System',
+    description: 'Advanced reverse osmosis system delivering crystal-clear, purified drinking water with superior contaminant removal for your family\'s health and safety.',
     features: [
-      'Smart regeneration technology',
-      'Salt & water efficient',
-      'Digital control valve',
-      'Reduces scale buildup',
-      'Extended appliance life'
+      'Multi-stage RO filtration',
+      'Removes 99% of contaminants',
+      'Improves taste & odor',
+      'Compact under-sink design',
+      'Easy filter replacement'
     ],
     image: '/images/intelliclear-600.jpg',
     badge: 'Smart Choice',
@@ -48,7 +48,7 @@ const products = [
     ],
     image: '/images/alkaline-filter.jpg',
     badge: 'Health Focused',
-    link: 'https://www.honestwaterco.com/products/alkaline-filter'
+    link: '#contact'
   }
 ]
 
@@ -128,48 +128,23 @@ export default function Products() {
                 </ul>
 
                 <div className={styles.actions}>
-                  {product.link.startsWith('http') ? (
-                    <a 
-                      href={product.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.learnMore}
+                  <Link href={product.link} className={styles.learnMore}>
+                    Get Quote
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 16 16" 
+                      fill="none"
                     >
-                      Learn More
-                      <svg 
-                        width="16" 
-                        height="16" 
-                        viewBox="0 0 16 16" 
-                        fill="none"
-                      >
-                        <path 
-                          d="M4 8H12M12 8L8 4M12 8L8 12" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </a>
-                  ) : (
-                    <Link href={product.link} className={styles.learnMore}>
-                      Get Quote
-                      <svg 
-                        width="16" 
-                        height="16" 
-                        viewBox="0 0 16 16" 
-                        fill="none"
-                      >
-                        <path 
-                          d="M4 8H12M12 8L8 4M12 8L8 12" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </Link>
-                  )}
+                      <path 
+                        d="M4 8H12M12 8L8 4M12 8L8 12" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
