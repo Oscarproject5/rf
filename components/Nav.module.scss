@@ -87,9 +87,9 @@
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: 32px;
   
-  @media (max-width: 1200px) {
+  @media (max-width: 968px) {
     display: none;
   }
 }
@@ -198,7 +198,7 @@
   cursor: pointer;
   padding: 8px;
   
-  @media (max-width: 1200px) {
+  @media (max-width: 968px) {
     display: block;
   }
   
@@ -207,31 +207,53 @@
   }
   
   &:focus-visible {
-    outline: 2px solid var(--violet-primary);
+    outline: 2px solid #8b5cf6;
     outline-offset: 2px;
-    border-radius: var(--radius-md);
+    border-radius: 8px;
   }
 }
 
 .hamburger {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: space-between;
   width: 24px;
   height: 18px;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    width: 22px;
+    height: 16px;
+  }
   
   span {
-    width: 100%;
+    display: block;
     height: 2px;
-    background: var(--white-pure);
-    border-radius: 1px;
-    transition: all var(--duration-300) var(--ease-out);
-    transform-origin: center;
+    width: 100%;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 0;
+    
+    &:nth-child(1) {
+      top: 0;
+    }
+    
+    &:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    &:nth-child(3) {
+      bottom: 0;
+    }
   }
   
   &.open {
     span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+      transform: rotate(45deg);
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
     }
     
     span:nth-child(2) {
@@ -239,7 +261,10 @@
     }
     
     span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+      transform: rotate(-45deg);
+      bottom: auto;
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
     }
   }
 }
@@ -313,20 +338,29 @@
 .mobilePhone {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--white-pure);
+  gap: 8px;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.125rem;
   
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  
   &:hover {
-    color: var(--violet-light);
+    color: #a78bfa;
   }
   
   &:focus-visible {
-    outline: 2px solid var(--violet-primary);
+    outline: 2px solid #8b5cf6;
     outline-offset: 2px;
-    border-radius: var(--radius-md);
+    border-radius: 8px;
   }
 }
 
