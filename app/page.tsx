@@ -18,7 +18,7 @@ import Footer from '@/components/Footer'
 const PaperBackground = dynamic(
   () => import('@/components/PaperBackground'),
   {
-    loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1, background: '#000' }} />,
+    loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1, background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }} />,
     ssr: false
   }
 )

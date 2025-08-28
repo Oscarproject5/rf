@@ -1,13 +1,11 @@
 .hero {
   position: relative;
   min-height: 100vh;
-  height: 100vh; // Fixed height to prevent shift
   display: flex;
   align-items: center;
   padding: 100px 0 60px 0; // Reduced top padding to show badges
   overflow: hidden;
   background: transparent; // Let body PaperBackground show through
-  contain: layout style; // Optimize rendering
 }
 
 .container {
@@ -53,22 +51,18 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

@@ -259,11 +259,9 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -273,8 +271,7 @@ body {
     animation: fadeIn 0.4s ease-out;
     
     .fade-in {
-      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      will-change: opacity, transform;
+      animation: fadeIn 0.4s ease-out forwards;
     }
     
     .stagger-1 { animation-delay: 0.05s; }
@@ -287,14 +284,6 @@ body {
     .stagger-8 { animation-delay: 0.4s; }
   }
   
-  // Enable hardware acceleration for smooth animations
-  .skeleton,
-  .fade-in,
-  .fade-in-scale {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-  }
 }
 
 // Mobile-specific styles
@@ -660,11 +649,9 @@ body {
   user-select: none;
 }
 
-// Hardware acceleration
+// GPU acceleration removed for better software rendering
 .gpu-accelerated {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+  // Removed hardware acceleration for smoother loading
 }
 
 // Smooth scrolling areas
@@ -729,16 +716,6 @@ body {
 .stagger-7 { animation-delay: 0.7s; }
 .stagger-8 { animation-delay: 0.8s; }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 // Skip link for accessibility
 .skip-link {

@@ -41,7 +41,6 @@
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  will-change: transform;
   
   @media (max-width: 768px) {
     width: 40px !important;
