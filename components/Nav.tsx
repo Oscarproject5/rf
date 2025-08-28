@@ -58,23 +58,80 @@ export default function Nav({ className = '' }: NavProps) {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     const href = e.currentTarget.getAttribute('href')
-    if (!href) return
     
+    console.log('Nav clicked:', href) // Debug log
+    
+    if (!href || href === '#') return
+    
+    // Close mobile menu immediately
     setIsMobileMenuOpen(false)
     
-    // Handle scroll to top for logo
-    if (href === '#hero' || href === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      return
-    }
-    
-    // Smooth scroll to section
-    const element = document.querySelector(href)
-    if (element) {
-      const yOffset = -80 // Account for fixed header height
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-      window.scrollTo({ top: y, behavior: 'smooth' })
-    }
+    // Small delay to allow menu animation to start
+    setTimeout(() => {
+      // Handle scroll to top for logo/hero
+      if (href === '#hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        return
+      }
+      
+      // Find the target section
+      const targetId = href.replace('#', '')
+      console.log('Looking for element with id:', targetId) // Debug log
+      
+      // Try multiple methods to find the element
+      let element = document.getElementById(targetId)
+      
+      // If not found by ID, try querySelector
+      if (!element) {
+        element = document.querySelector(`[id="${targetId}"]`)
+      }
+      
+      // If still not found, try finding section with that ID
+      if (!element) {
+        element = document.querySelector(`section#${targetId}`)
+      }
+      
+      console.log('Found element:', element) // Debug log
+      
+      if (element) {
+        // Get header height dynamically
+        const header = document.querySelector('nav')
+        const headerHeight = header ? header.offsetHeight : 80
+        
+        // Calculate scroll position
+        const elementTop = element.getBoundingClientRect().top
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop
+        const scrollToPosition = elementTop + currentScrollY - headerHeight - 10
+        
+        console.log('Scrolling to position:', scrollToPosition) // Debug log
+        
+        // Use native smooth scroll with fallback
+        try {
+          window.scrollTo({
+            top: scrollToPosition,
+            behavior: 'smooth'
+          })
+        } catch (error) {
+          // Fallback for browsers that don't support smooth scroll
+          console.log('Smooth scroll failed, using fallback')
+          window.scrollTo(0, scrollToPosition)
+        }
+        
+        // Additional fallback for stubborn browsers
+        setTimeout(() => {
+          const currentPosition = window.pageYOffset || document.documentElement.scrollTop
+          if (Math.abs(currentPosition - scrollToPosition) > 100) {
+            console.log('Scroll didn\'t work, trying again')
+            element?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }, 500)
+      } else {
+        console.error(`Section with id "${targetId}" not found in the DOM`)
+        // Try to find all elements with IDs and log them
+        const allIds = Array.from(document.querySelectorAll('[id]')).map(el => el.id)
+        console.log('Available IDs in page:', allIds)
+      }
+    }, 150) // Delay to allow menu close animation
   }
 
   const handlePhoneClick = () => {
@@ -249,7 +306,11 @@ export default function Nav({ className = '' }: NavProps) {
                       <a
                         href={item.href}
                         className={styles.mobileNavLink}
-                        onClick={handleNavClick}
+                        onClick={(e) => {
+                          handleNavClick(e)
+                          // Ensure menu closes on mobile
+                          setIsMobileMenuOpen(false)
+                        }}
                       >
                         {item.label}
                       </a>
