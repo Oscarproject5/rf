@@ -101,7 +101,7 @@ export default function PrivacyPolicy() {
             <li>Opt-out of marketing communications</li>
             <li>Withdraw consent for data processing</li>
           </ul>
-          <p>To exercise these rights, contact us at privacy@lovewater.com or call (956) 123-4567.</p>
+          <p>To exercise these rights, contact us at privacy@lovewater.com or call (956) 579-1750.</p>
         </section>
 
         <section>
@@ -139,7 +139,7 @@ export default function PrivacyPolicy() {
             <p><strong>Love Water</strong></p>
             <p>Rio Grande Valley, Texas</p>
             <p>Email: privacy@lovewater.com</p>
-            <p>Phone: (956) 123-4567</p>
+            <p>Phone: (956) 579-1750</p>
             <p>Website: www.lovewater.com</p>
           </div>
         </section>

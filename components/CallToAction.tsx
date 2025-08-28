@@ -136,7 +136,7 @@ export default function CallToAction() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  Something went wrong. Please call us at (956) 555-PURE.
+                  Something went wrong. Please call us at (956) 579-1750.
                 </motion.p>
               )}
             </form>

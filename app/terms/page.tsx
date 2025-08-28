@@ -181,7 +181,7 @@ export default function TermsOfService() {
             <p><strong>Love Water</strong></p>
             <p>Rio Grande Valley, Texas</p>
             <p>Email: legal@lovewater.com</p>
-            <p>Phone: (956) 123-4567</p>
+            <p>Phone: (956) 579-1750</p>
             <p>Business Hours: Monday-Saturday, 8:00 AM - 6:00 PM CST</p>
           </div>
         </section>

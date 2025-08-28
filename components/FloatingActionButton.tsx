@@ -21,7 +21,7 @@ export default function FloatingActionButton({
 
   const handleCallClick = () => {
     impact('medium')
-    window.location.href = 'tel:+19565557873'
+    window.location.href = 'tel:+19565791750'
   }
 
   if (!isMobile) return null
@@ -41,7 +41,7 @@ export default function FloatingActionButton({
         onClick={handleCallClick}
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.05 }}
-        aria-label="Call (956) 555-PURE"
+        aria-label="Call (956) 579-1750"
       >
         <PhoneIcon />
       </motion.button>

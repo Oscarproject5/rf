@@ -201,7 +201,7 @@ export default function MobileLayout({ children, className = '' }: MobileLayoutP
         footer={
           <div className={styles.drawerFooter}>
             <p>Rio Grande Valley's Water Experts</p>
-            <p>📞 (956) 123-4567</p>
+            <p>📞 (956) 579-1750</p>
           </div>
         }
       />

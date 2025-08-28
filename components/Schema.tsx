@@ -9,7 +9,7 @@ export default function Schema() {
     name: 'Love Water',
     description: 'Water treatment systems, filtration, and softener installation serving the Rio Grande Valley',
     url: 'https://www.lovewaterrgv.com',
-    telephone: '(956) 555-7873',
+    telephone: '(956) 579-1750',
     email: 'info@lovewaterrgv.com',
     address: {
       '@type': 'PostalAddress',
@@ -178,7 +178,7 @@ export default function Schema() {
     logo: 'https://www.lovewaterrgv.com/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+1-956-555-7873',
+      telephone: '+1-956-579-1750',
       contactType: 'customer service',
       areaServed: 'US',
       availableLanguage: ['English', 'Spanish']

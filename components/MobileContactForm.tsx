@@ -165,7 +165,7 @@ export default function MobileContactForm({
         <h3>Thank You!</h3>
         <p>We've received your request and will contact you within 24 hours.</p>
         <div className={styles.successActions}>
-          <a href="tel:+19561234567" className={styles.callButton}>
+          <a href="tel:+19565791750" className={styles.callButton}>
             📞 Call Now for Faster Service
           </a>
         </div>
@@ -216,7 +216,7 @@ export default function MobileContactForm({
             className={`${styles.input} ${errors.phone ? styles.error : ''}`}
             value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
-            placeholder="(956) 123-4567"
+            placeholder="(956) 579-1750"
             autoComplete="tel"
             inputMode="numeric"
             required
@@ -321,10 +321,10 @@ export default function MobileContactForm({
 
       {/* Quick Actions */}
       <div className={styles.quickActions}>
-        <a href="tel:+19561234567" className={styles.quickAction}>
-          📞 Call Now: (956) 123-4567
+        <a href="tel:+19565791750" className={styles.quickAction}>
+          📞 Call Now: (956) 579-1750
         </a>
-        <a href="https://wa.me/19561234567" className={styles.quickAction}>
+        <a href="https://wa.me/19565791750" className={styles.quickAction}>
           💬 Text on WhatsApp
         </a>
       </div>

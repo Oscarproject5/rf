@@ -174,10 +174,10 @@ export default function Nav({ className = '' }: NavProps) {
             {/* Contact Info */}
             <div className={styles.contactInfo}>
               <a
-                href="tel:+19565557873"
+                href="tel:+19565791750"
                 className={styles.phoneNumber}
                 onClick={handlePhoneClick}
-                aria-label="Call Love Water at (956) 555-PURE"
+                aria-label="Call Love Water at (956) 579-1750"
               >
                 <svg viewBox="0 0 24 24" className={styles.phoneIcon}>
                   <path
@@ -185,7 +185,7 @@ export default function Nav({ className = '' }: NavProps) {
                     fill="currentColor"
                   />
                 </svg>
-                (956) 555-PURE
+                (956) 579-1750
               </a>
 
               <MagneticButton
@@ -256,7 +256,7 @@ export default function Nav({ className = '' }: NavProps) {
 
                 <div className={styles.mobileContact}>
                   <a
-                    href="tel:+19565557873"
+                    href="tel:+19565791750"
                     className={styles.mobilePhone}
                     onClick={handlePhoneClick}
                   >
@@ -266,7 +266,7 @@ export default function Nav({ className = '' }: NavProps) {
                         fill="currentColor"
                       />
                     </svg>
-                    (956) 555-PURE
+                    (956) 579-1750
                   </a>
 
                   <MagneticButton
