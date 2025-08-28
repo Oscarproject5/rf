@@ -15,30 +15,19 @@ import MobileLayout from '@/components/MobileLayout'
 import Footer from '@/components/Footer'
 
 // Dynamic imports with optimized loading states and better chunking
-const PaperBackground = dynamic(
-  () => import('@/components/PaperBackground'),
-  {
-    loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1, background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }} />,
-    ssr: false
-  }
-)
+const PaperBackground = dynamic(() => import('@/components/PaperBackground'), {
+  loading: () => <div className="skeleton" style={{ position: 'fixed', inset: 0, zIndex: -1, background: '#000' }} />,
+  ssr: false
+})
 
-// Lazy-loaded components with intersection observer - optimized for mobile
-const Services = dynamic(
-  () => import(/* webpackChunkName: "services" */ '@/components/Services'),
-  {
-    loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />,
-    ssr: true // Enable SSR for better initial load
-  }
-)
+// Lazy-loaded components with intersection observer
+const Services = dynamic(() => import('@/components/Services'), {
+  loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />
+})
 
-const Systems = dynamic(
-  () => import(/* webpackChunkName: "systems" */ '@/components/Systems'),
-  {
-    loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem', borderRadius: '1rem' }} />,
-    ssr: true
-  }
-)
+const Systems = dynamic(() => import('@/components/Systems'), {
+  loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem', borderRadius: '1rem' }} />
+})
 
 // Heavy 3D component - only load when needed
 const WaterSoftenerDiagram = dynamic(
@@ -61,53 +50,37 @@ const WaterSoftenerDiagram = dynamic(
   }
 )
 
-const Testimonials = dynamic(
-  () => import(/* webpackChunkName: "testimonials-desktop" */ '@/components/Testimonials'),
-  {
-    loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />,
-    ssr: false // Desktop only, no SSR needed
-  }
-)
+const Testimonials = dynamic(() => import('@/components/Testimonials'), {
+  loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />
+})
 
-const MobileTestimonials = dynamic(
-  () => import(/* webpackChunkName: "testimonials" */ '@/components/MobileTestimonials'),
-  {
-    loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />,
-    ssr: true
-  }
-)
+const MobileTestimonials = dynamic(() => import('@/components/MobileTestimonials'), {
+  loading: () => <div className="skeleton" style={{ height: '400px', margin: '2rem', borderRadius: '1rem' }} />
+})
 
-const CallToAction = dynamic(
-  () => import(/* webpackChunkName: "cta" */ '@/components/CallToAction'),
-  {
-    loading: () => <div className="skeleton" style={{ height: '200px', margin: '2rem', borderRadius: '1rem' }} />,
-    ssr: true
-  }
-)
+const CallToAction = dynamic(() => import('@/components/CallToAction'), {
+  loading: () => <div className="skeleton" style={{ height: '200px', margin: '2rem', borderRadius: '1rem' }} />
+})
 
-const FAQ = dynamic(
-  () => import(/* webpackChunkName: "faq" */ '@/components/FAQ'),
-  {
-    loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem', borderRadius: '1rem' }} />,
-    ssr: true
-  }
-)
+const FAQ = dynamic(() => import('@/components/FAQ'), {
+  loading: () => <div className="skeleton" style={{ height: '600px', margin: '2rem', borderRadius: '1rem' }} />
+})
 
-// Lazy loading component wrapper - optimized for mobile
+// Lazy loading component wrapper
 function LazySection({ children, className = '', id }: {
   children: React.ReactNode
   className?: string
   id?: string
 }) {
   const { ref, isVisible } = useIntersectionObserver({
-    threshold: 0.05, // Lower threshold for earlier loading on mobile
-    rootMargin: '150px', // More margin for smoother scrolling
+    threshold: 0.1,
+    rootMargin: '100px',
     triggerOnce: true
   })
 
   return (
     <div ref={ref} className={className} id={id}>
-      {isVisible ? children : <div style={{ minHeight: '200px' }} />}
+      {isVisible ? children : null}
     </div>
   )
 }

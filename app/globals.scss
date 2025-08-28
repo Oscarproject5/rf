@@ -265,26 +265,6 @@ body {
   }
 }
 
-// Desktop-specific smooth animations
-@media (min-width: 769px) {
-  .desktop-layout {
-    animation: fadeIn 0.4s ease-out;
-    
-    .fade-in {
-      animation: fadeIn 0.4s ease-out forwards;
-    }
-    
-    .stagger-1 { animation-delay: 0.05s; }
-    .stagger-2 { animation-delay: 0.1s; }
-    .stagger-3 { animation-delay: 0.15s; }
-    .stagger-4 { animation-delay: 0.2s; }
-    .stagger-5 { animation-delay: 0.25s; }
-    .stagger-6 { animation-delay: 0.3s; }
-    .stagger-7 { animation-delay: 0.35s; }
-    .stagger-8 { animation-delay: 0.4s; }
-  }
-  
-}
 
 // Mobile-specific styles
 @media (max-width: 768px) {
@@ -437,20 +417,21 @@ body {
 }
 
 .fade-in {
-  animation: fadeIn 0.6s var(--ease-out) forwards;
-  opacity: 0;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .fade-in-scale {
-  animation: fadeInScale 0.6s var(--ease-out) forwards;
-  opacity: 0;
+  animation: fadeInScale 0.3s ease-out;
 }
 
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
 
 .skeleton {
   background: linear-gradient(90deg, 
@@ -702,19 +683,6 @@ body {
 }
 
 // Fade in animations with stagger
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-  opacity: 0;
-}
-
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
-.stagger-6 { animation-delay: 0.6s; }
-.stagger-7 { animation-delay: 0.7s; }
-.stagger-8 { animation-delay: 0.8s; }
 
 
 // Skip link for accessibility
