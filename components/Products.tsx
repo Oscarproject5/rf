@@ -16,7 +16,7 @@ const products = [
       'Protects appliances & plumbing',
       'Battery backup included'
     ],
-    image: '/images/hydro-spring.jpg',
+    image: '/images/products/hydro-spring.png',
     badge: 'Most Popular',
     link: '#contact'
   },
@@ -31,7 +31,7 @@ const products = [
       'Compact under-sink design',
       'Easy filter replacement'
     ],
-    image: '/images/intelliclear-600.jpg',
+    image: '/images/products/intelliclear-600.png',
     badge: 'Smart Choice',
     link: '#contact'
   },
@@ -46,7 +46,7 @@ const products = [
       'Antioxidant properties',
       'Easy maintenance'
     ],
-    image: '/images/alkaline-filter.jpg',
+    image: '/images/products/alkaline-filter.png',
     badge: 'Health Focused',
     link: '#contact'
   }
@@ -79,24 +79,14 @@ export default function Products() {
               
               <div className={styles.imageContainer}>
                 <div className={styles.imagePlaceholder}>
-                  <svg 
-                    width="100" 
-                    height="100" 
-                    viewBox="0 0 100 100" 
-                    fill="none" 
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={styles.icon}
-                  >
-                    <rect width="100" height="100" rx="20" fill="url(#gradient)" fillOpacity="0.1"/>
-                    <path d="M50 25C50 25 35 35 35 50C35 58.284 41.716 65 50 65C58.284 65 65 58.284 65 50C65 35 50 25 50 25Z" stroke="url(#gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M50 55C52.761 55 55 52.761 55 50C55 47.239 52.761 45 50 45" stroke="url(#gradient)" strokeWidth="2" strokeLinecap="round"/>
-                    <defs>
-                      <linearGradient id="gradient" x1="0" y1="0" x2="100" y2="100">
-                        <stop stopColor="#0ea5e9"/>
-                        <stop offset="1" stopColor="#06b6d4"/>
-                      </linearGradient>
-                    </defs>
-                  </svg>
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={300}
+                    height={200}
+                    className={styles.productImage}
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
