@@ -82,12 +82,13 @@ export default function Products() {
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={400}
-                    height={300}
+                    width={500}
+                    height={400}
                     className={styles.productImage}
                     loading="lazy"
-                    quality={90}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={95}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                    priority={index === 0}
                   />
                 </div>
               </div>

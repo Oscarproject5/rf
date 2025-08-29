@@ -79,6 +79,35 @@
   }
 }
 
+.textarea {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  &:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #0ea5e9;
+  }
+}
+
+.formGroupFull {
+  grid-column: 1 / -1;
+  margin-bottom: 12px;
+}
+
 .submitButton {
   width: 100%;
   justify-content: center;
@@ -191,6 +220,14 @@
 
   .form {
     padding: 32px 24px;
+  }
+  
+  .formGrid {
+    gap: 16px;
+  }
+  
+  .textarea {
+    min-height: 100px;
   }
 
   .benefits {

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Test - Products Section</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        .device-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .breakpoint-test {
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #0ea5e9;
+            border-radius: 10px;
+            background: rgba(14, 165, 233, 0.1);
+        }
+        
+        .mobile-only { display: none; }
+        .tablet-only { display: none; }
+        .desktop-only { display: block; }
+        
+        @media (max-width: 768px) {
+            .mobile-only { display: block; }
+            .desktop-only { display: none; }
+            .tablet-only { display: block; }
+        }
+        
+        @media (max-width: 480px) {
+            .tablet-only { display: none; }
+        }
+        
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="device-info">
+        <div>Window Width: <span id="width"></span>px</div>
+        <div>Device: <span id="device"></span></div>
+    </div>
+    
+    <div class="test-container">
+        <h1>Products Section - Responsive Test</h1>
+        
+        <div class="breakpoint-test">
+            <div class="desktop-only">
+                <h2>Desktop View (>768px)</h2>
+                <p>Grid should show multiple columns</p>
+                <p>Images: object-fit: cover, no padding</p>
+            </div>
+            <div class="tablet-only">
+                <h2>Tablet View (481px - 768px)</h2>
+                <p>Grid should show single column</p>
+                <p>Images: object-fit: contain, 15px padding, height: 250px</p>
+            </div>
+            <div class="mobile-only">
+                <h2>Mobile View (≤480px)</h2>
+                <p>Grid should show single column</p>
+                <p>Images: object-fit: contain, 15px padding, height: 220px</p>
+            </div>
+        </div>
+        
+        <h2>Live Preview</h2>
+        <iframe src="http://localhost:3000/#products"></iframe>
+        
+        <h2>Image Alignment Checklist</h2>
+        <ul>
+            <li>✓ All product images should be centered in their containers</li>
+            <li>✓ Images should maintain aspect ratio on mobile</li>
+            <li>✓ No image overflow or cropping on mobile devices</li>
+            <li>✓ Consistent spacing between cards on all devices</li>
+            <li>✓ Images should be fully visible within containers</li>
+            <li>✓ Smooth transitions when resizing browser</li>
+        </ul>
+    </div>
+    
+    <script>
+        function updateDeviceInfo() {
+            const width = window.innerWidth;
+            document.getElementById('width').textContent = width;
+            
+            let device = 'Desktop';
+            if (width <= 480) {
+                device = 'Mobile';
+            } else if (width <= 768) {
+                device = 'Tablet';
+            }
+            document.getElementById('device').textContent = device;
+        }
+        
+        updateDeviceInfo();
+        window.addEventListener('resize', updateDeviceInfo);
+    </script>
+</body>
+</html>

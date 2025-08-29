@@ -10,6 +10,7 @@ export default function CallToAction() {
     phone: '',
     email: '',
     address: '',
+    message: '',
     website: '' // Honeypot field
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -20,7 +21,7 @@ export default function CallToAction() {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('/api/lead', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -28,7 +29,7 @@ export default function CallToAction() {
       
       if (response.ok) {
         setSubmitStatus('success')
-        setFormData({ name: '', phone: '', email: '', address: '', website: '' })
+        setFormData({ name: '', phone: '', email: '', address: '', message: '', website: '' })
       } else {
         setSubmitStatus('error')
       }
@@ -39,7 +40,7 @@ export default function CallToAction() {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -111,6 +112,17 @@ export default function CallToAction() {
                     className={styles.input}
                   />
                 </div>
+              </div>
+
+              <div className={styles.formGroupFull}>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell us about your water concerns or specific needs (optional)"
+                  rows={4}
+                  className={styles.textarea}
+                />
               </div>
 
               {/* Honeypot field - hidden from users */}
