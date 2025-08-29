@@ -120,9 +120,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </main>
         </MobileLayout>
 
-        {/* Google Analytics - Replace with actual tracking ID */}
+        {/* Google tag (gtag.js) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17518032793"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -130,10 +131,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'GA_TRACKING_ID', {
-              page_title: document.title,
-              page_location: window.location.href,
-            });
+            gtag('config', 'AW-17518032793');
           `}
         </Script>
 
